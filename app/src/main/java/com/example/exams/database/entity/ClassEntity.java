@@ -8,10 +8,19 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "class")
 public class ClassEntity{
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     @PrimaryKey
-    public int id_Class;
+    private int id_Class;
+
+    public String getClassName() {
+        return className;
+    }
 
     @ColumnInfo(name = "class_name")
-    public String className;
+    private String className;
 }
 

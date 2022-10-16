@@ -7,10 +7,21 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Room")
 public class SubjectEntity {
+    public SubjectEntity(String SubjectName){
+        this.subjectName = SubjectName;
+    }
 
     @PrimaryKey
-    public int id_Subject;
+    private int id_Subject;
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
 
     @ColumnInfo(name = "Subject_name")
-    public String subjectName;
+    private String subjectName;
 }
