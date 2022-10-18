@@ -3,11 +3,19 @@ package com.example.exams.database.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(tableName = "exam")
+@Entity(tableName = "exam",
+    foreignKeys =
+     @ForeignKey(
+            entity = ClassEntity.class,
+            parentColumns = "id_Class",
+            childColumns = "className",
+            onDelete = ForeignKey.CASCADE
+    ))
 public class ExamEntity {
 
     public ExamEntity(Date date, int duration, int numberStudents){
@@ -16,7 +24,7 @@ public class ExamEntity {
         this.numberStudents = numberStudents;
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id_Exam;
 
     @ColumnInfo(name = "date")

@@ -11,7 +11,7 @@ public class RoomEntity {
         this.roomName = roomName;
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id_Room;
 
     public int getRoomName() {

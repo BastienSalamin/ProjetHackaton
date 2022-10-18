@@ -11,7 +11,7 @@ public class SubjectEntity {
         this.subjectName = SubjectName;
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id_Subject;
 
     public String getSubjectName() {
