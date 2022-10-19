@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Room")
+@Entity(tableName = "Subject")
 public class SubjectEntity {
     public SubjectEntity(String SubjectName){
         this.subjectName = SubjectName;

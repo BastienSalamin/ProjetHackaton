@@ -1,40 +1,48 @@
 package com.example.exams.database.entity;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity(tableName = "Student")
-
 public class StudentEntity {
-
-    public StudentEntity(String name,String surname){
-
-        this.name = name;
-        this.surname = surname;
-
-    }
-
-
     @PrimaryKey(autoGenerate = true)
-    private int id_Student;
+    private long idStudent;
 
-    @ColumnInfo(name = "name")
-    private String name;
+    @ColumnInfo(name = "Class")
+    private String className;
 
-    @ColumnInfo(name = "surname")
+    @ColumnInfo(name = "Surname")
     private String surname;
 
-    public String getName() {
-        return name;
+    @ColumnInfo(name = "Name")
+    private String name;
+
+    @Ignore
+    public StudentEntity() {
     }
 
-    public void setName(String name) {
+    public StudentEntity(String className, String surname, String name){
+        this.className = className;
+        this.surname = surname;
         this.name = name;
+    }
+
+    public long getIdStudent() {
+        return idStudent;
+    }
+
+    public void setIdStudent(long idStudent) {
+        this.idStudent = idStudent;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getSurname() {
@@ -45,6 +53,11 @@ public class StudentEntity {
         this.surname = surname;
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -15,7 +15,18 @@ public class DatabaseInitializer {
         task.execute();
     }
 
+    private static void addStudent(final AppDatabase db, final String className, final String surname, final String name) {
+        StudentEntity student = new StudentEntity(className, surname, name);
+        db.studentDao().insert(student);
+    }
 
+    private static void populateWithTestData(AppDatabase db) {
+        db.studentDao().deleteAll();
+
+        addStudent(db, "605_3", "Martroye de Joly", "Alexandre");
+        addStudent(db, "605_3", "Salamin", "Bastien");
+        addStudent(db, "607_3", "Amano", "Maya");
+    }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
         private final AppDatabase database;
@@ -26,7 +37,7 @@ public class DatabaseInitializer {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            // populateWithTestData(database);
+            populateWithTestData(database);
             return null;
         }
     }

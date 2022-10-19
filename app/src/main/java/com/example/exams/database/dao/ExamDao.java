@@ -3,6 +3,7 @@ package com.example.exams.database.dao;
 import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -14,6 +15,7 @@ import com.example.exams.database.entity.ExamEntity;
 
 import java.util.List;
 
+@Dao
 public interface ExamDao {
 
     @Query("SELECT * FROM exam WHERE id_Exam = :id")
@@ -23,7 +25,7 @@ public interface ExamDao {
     LiveData<List<ExamEntity>> getAll();
 
     @Transaction
-    @Query("SELECT * FROM class WHERE id_Class != :id")
+    @Query("SELECT * FROM exam WHERE id_Exam != :id")
     LiveData<List<ExamEntity>> getOtherClientsWithAccounts(String id);
 
     @Insert

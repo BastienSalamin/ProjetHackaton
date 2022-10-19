@@ -1,12 +1,9 @@
 package com.example.exams.database.entity;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-
-import java.util.Date;
 
 @Entity(tableName = "exam",
     foreignKeys =
@@ -18,7 +15,7 @@ import java.util.Date;
     ))
 public class ExamEntity {
 
-    public ExamEntity(Date date, int duration, int numberStudents){
+    public ExamEntity(String date, int duration, int numberStudents){
         this.date = date;
         this.duration = duration;
         this.numberStudents = numberStudents;
@@ -28,7 +25,7 @@ public class ExamEntity {
     private int id_Exam;
 
     @ColumnInfo(name = "date")
-    private Date date;
+    private String date;
 
     @ColumnInfo(name = "duration")
     private int duration;
@@ -36,11 +33,21 @@ public class ExamEntity {
     @ColumnInfo(name = "Nbre_of_Students")
     private int numberStudents;
 
-    public Date getDate() {
+    private String className;
+
+    public int getId_Exam() {
+        return id_Exam;
+    }
+
+    public void setId_Exam(int id_Exam) {
+        this.id_Exam = id_Exam;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -60,8 +67,13 @@ public class ExamEntity {
         this.numberStudents = numberStudents;
     }
 
+    public String getClassName() {
+        return className;
+    }
 
-
+    public void setClassName(String className) {
+        this.className = className;
+    }
 }
 
 

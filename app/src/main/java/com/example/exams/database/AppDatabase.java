@@ -13,17 +13,17 @@ import android.util.Log;
 import java.util.concurrent.Executors;
 
 // import com.example.exams.database.dao.ExamDao;
-// import com.example.exams.database.dao.StudentDao;
-import com.example.exams.database.entity.ExamEntity;
+import com.example.exams.database.dao.StudentDao;
+// import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
 
-@Database(entities = {ExamEntity.class, StudentEntity.class}, version = 1)
+@Database(entities = {StudentEntity.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
     private static AppDatabase instance;
     private static final String DATABASE_NAME = "exams-database";
     // public abstract ExamDao examDao();
-    // public abstract StudentDao studentDao();
+    public abstract StudentDao studentDao();
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
     public static AppDatabase getInstance(final Context context) {
@@ -57,7 +57,7 @@ public abstract class AppDatabase extends RoomDatabase {
         Executors.newSingleThreadExecutor().execute(() -> {
             database.runInTransaction(() -> {
                 Log.i(TAG, "Suppression des données enregistrées.");
-                // database.studentDao().deleteAll();
+                database.studentDao().deleteAll();
                 // database.examDao().deleteAll();
 
                 DatabaseInitializer.populateDatabase(database);
