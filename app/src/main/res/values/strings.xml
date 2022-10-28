@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Exams</string>
+    <string name="button_settings">AAAAAAAAAAAAAAA</string>
     <string name="app_resume">Vos Examens</string>
     <string name="button_create">Créer un examen</string>
     <string name="button_list_students">Liste des étudiants</string>

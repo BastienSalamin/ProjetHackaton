@@ -13,7 +13,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:label="Exams App">
+            android:label="Exams App"
+            android:theme="@style/Theme.Exams.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +28,8 @@
         <activity
             android:name=".ui.exam.ExamCreationActivity"
             android:label="Création d'un examen"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/Theme.Exams.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
@@ -35,7 +37,8 @@
         <activity
             android:name=".ui.student.StudentsActivity"
             android:label="Liste des étudiants"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/Theme.Exams.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
@@ -43,7 +46,8 @@
         <activity
             android:name=".ui.student.StudentActivity"
             android:label="Étudiant"
-            android:parentActivityName=".ui.student.StudentsActivity">
+            android:parentActivityName=".ui.student.StudentsActivity"
+            android:theme="@style/Theme.Exams.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.student.StudentsActivity" />
