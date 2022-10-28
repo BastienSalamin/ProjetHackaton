@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.exams.R;
+import com.example.exams.ui.exam.ExamCreationActivity;
 import com.example.exams.ui.student.StudentsActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void browseStudents(View view) {
         Intent intent = new Intent(this, StudentsActivity.class);
+        startActivity(intent);
+    }
+
+    public void createExam(View view) {
+        Intent intent = new Intent(this, ExamCreationActivity.class);
         startActivity(intent);
     }
 }

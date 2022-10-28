@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Exams</string>
+    <string name="app_resume">Vos Examens</string>
+    <string name="button_create">Créer un examen</string>
+    <string name="button_list_students">Liste des étudiants</string>
+    <string name="add_student">Ajouter un étudiant</string>
+    <string name="student_label_class">Classe :</string>
+    <string name="student_hint_class">N° de la classe</string>
+    <string name="student_label_surname">Nom :</string>
+    <string name="student_hint_surname">Nom de famille</string>
+    <string name="student_label_name">Prénom :</string>
+    <string name="student_hint_name">Prénom</string>
 </resources>

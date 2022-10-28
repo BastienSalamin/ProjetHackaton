@@ -2,7 +2,9 @@ package com.example.exams.ui.student;
 
 import static android.graphics.Color.*;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -85,6 +87,9 @@ public class StudentsActivity extends MainActivity {
         row.setLayoutParams(layoutParams);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setWeightSum(100);
+        row.setClickable(true);
+        row.setFocusable(true);
+        row.setBackgroundResource(android.R.drawable.menuitem_background);
         for (int i = 0 ; i < 4 ; i++) {
             LinearLayout.LayoutParams textParams;
             textParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 25);
@@ -96,8 +101,22 @@ public class StudentsActivity extends MainActivity {
             col1.setPadding(2,0,0,0);
             col1.setLayoutParams(textParams);
             col1.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            col1.setGravity(Gravity.CENTER);
             row.addView(col1);
         }
+        row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StudentsActivity.this, StudentActivity.class);
+                intent.putExtra("StudentInfo", studentData);
+                startActivity(intent);
+            }
+        });
         layout.addView(row);
+    }
+
+    public void browseStudent(View view) {
+        Intent intent = new Intent(this, StudentActivity.class);
+        startActivity(intent);
     }
 }
