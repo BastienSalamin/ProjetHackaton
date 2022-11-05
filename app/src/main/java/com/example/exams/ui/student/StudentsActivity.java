@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentsActivity extends MainActivity {
-
-    private static final String TAG = "StudentsActivity";
-
     private List<StudentEntity> students;
 
     private StudentsListViewModel viewModel;
@@ -68,7 +65,7 @@ public class StudentsActivity extends MainActivity {
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setWeightSum(100);
 
-        String[] titles={"Classe", "Nom", "Prénom", " "};
+        String[] titles={"Classe", "Nom", "Prénom", "Statut"};
 
         for (int i = 0 ; i < 4 ; i++) {
             LinearLayout.LayoutParams layoutParams;
@@ -87,7 +84,7 @@ public class StudentsActivity extends MainActivity {
     private void createTable(LinearLayout layout, int pos) {
         StudentEntity student = students.get(pos);
 
-        String[] studentData = {student.getClassName(), student.getSurname(), student.getName(), " "};
+        String[] studentData = {student.getClassName(), student.getSurname(), student.getName(), " ", String.valueOf(student.getIdStudent())};
 
         LinearLayout row = new LinearLayout(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 6);
@@ -117,6 +114,9 @@ public class StudentsActivity extends MainActivity {
                 Intent intent = new Intent(StudentsActivity.this, StudentActivity.class);
                 intent.putExtra("StudentInfo", studentData);
                 startActivity(intent);
+
+
+
             }
         });
         layout.addView(row);

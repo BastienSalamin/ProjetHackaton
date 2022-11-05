@@ -37,23 +37,6 @@ public class StudentsListViewModel extends AndroidViewModel {
         observableStudents.addSource(students, observableStudents::setValue);
     }
 
-    public static class Factory extends ViewModelProvider.NewInstanceFactory {
-        @NonNull
-        private final Application application;
-
-        private final StudentRepository studentRepository;
-
-        public Factory(@NonNull Application application) {
-            this.application = application;
-            this.studentRepository = ((BaseApp) application).getStudentRepository();
-        }
-
-        @Override
-        public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new StudentsListViewModel(application);
-        }
-    }
-
     public LiveData<List<StudentEntity>> getAllStudents() {
         return observableStudents;
     }
