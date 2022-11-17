@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6eb49c1bac6d9839150ac80913de0588",
+    "identityHash": "c9cf5e604fab5b25f4e9f257f2ff1f98",
     "entities": [
       {
         "tableName": "Student",
@@ -41,12 +41,160 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Exam",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_Exam` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Date` TEXT, `Duration` INTEGER NOT NULL, `Nbre_of_Students` INTEGER NOT NULL, `idSubject` INTEGER NOT NULL, `idRoom` INTEGER NOT NULL, `className` TEXT, FOREIGN KEY(`idRoom`) REFERENCES `Room`(`id_Room`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idSubject`) REFERENCES `Subject`(`id_Subject`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id_Exam",
+            "columnName": "id_Exam",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "Date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "duration",
+            "columnName": "Duration",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numberStudents",
+            "columnName": "Nbre_of_Students",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idSubject",
+            "columnName": "idSubject",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRoom",
+            "columnName": "idRoom",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "className",
+            "columnName": "className",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_Exam"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Exam_idRoom",
+            "unique": false,
+            "columnNames": [
+              "idRoom"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Exam_idRoom` ON `${TABLE_NAME}` (`idRoom`)"
+          },
+          {
+            "name": "index_Exam_idSubject",
+            "unique": false,
+            "columnNames": [
+              "idSubject"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Exam_idSubject` ON `${TABLE_NAME}` (`idSubject`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Room",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idRoom"
+            ],
+            "referencedColumns": [
+              "id_Room"
+            ]
+          },
+          {
+            "table": "Subject",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idSubject"
+            ],
+            "referencedColumns": [
+              "id_Subject"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Room",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_Room` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `room_name` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id_Room",
+            "columnName": "id_Room",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roomName",
+            "columnName": "room_name",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_Room"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Subject",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_Subject` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `subject_name` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id_Subject",
+            "columnName": "id_Subject",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subjectName",
+            "columnName": "subject_name",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_Subject"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6eb49c1bac6d9839150ac80913de0588')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c9cf5e604fab5b25f4e9f257f2ff1f98')"
     ]
   }
 }

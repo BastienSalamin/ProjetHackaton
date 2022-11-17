@@ -11,21 +11,24 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+
 import com.example.exams.database.entity.ExamEntity;
+import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
 
 import java.util.List;
 
 @Dao
 public interface ExamDao {
 
-    @Query("SELECT * FROM exam WHERE id_Exam = :id")
+    @Query("SELECT * FROM Exam WHERE id_Exam = :id")
     LiveData<ExamEntity> getById(String id);
 
-    @Query("SELECT * FROM exam")
+    @Query("SELECT * FROM Exam")
     LiveData<List<ExamEntity>> getAll();
 
     @Transaction
-    @Query("SELECT * FROM exam WHERE id_Exam != :id")
+    @Query("SELECT * FROM Exam WHERE id_Exam != :id")
     LiveData<List<ExamEntity>> getOtherClientsWithAccounts(String id);
 
     @Insert
@@ -40,7 +43,7 @@ public interface ExamDao {
     @Delete
     void delete(ExamEntity examEntity);
 
-    @Query("DELETE FROM exam")
+    @Query("DELETE FROM Exam")
     void deleteAll();
 
 }

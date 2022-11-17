@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Room")
 public class RoomEntity {
     @PrimaryKey(autoGenerate = true)
-    private long id_Room;
+    private int id_Room;
 
     public RoomEntity(int roomName){
         this.roomName = roomName;
@@ -19,6 +19,14 @@ public class RoomEntity {
 
     public void setRoomName(int roomName) {
         this.roomName = roomName;
+    }
+
+    public int getId_Room() {
+        return id_Room;
+    }
+
+    public void setId_Room(int id_Room) {
+        this.id_Room = id_Room;
     }
 
     @ColumnInfo(name = "room_name")

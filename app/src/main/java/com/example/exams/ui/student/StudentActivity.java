@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.exams.R;
+import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.student.StudentViewModel;
@@ -110,6 +111,16 @@ public class StudentActivity extends AppCompatActivity {
                     public void onFailure(Exception e) {
                         Log.d(TAG, "createStudent: failure", e);
                     }
+
+                    @Override
+                    public void onPostExecute(Void unused) {
+
+                    }
+
+                    @Override
+                    public Void doInBackground(ExamEntity... params) {
+                        return null;
+                    }
                 });
 
                 Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
@@ -152,6 +163,16 @@ public class StudentActivity extends AppCompatActivity {
                     public void onFailure(Exception e) {
                         Log.d(TAG, "updateStudent: failure", e);
                     }
+
+                    @Override
+                    public void onPostExecute(Void unused) {
+
+                    }
+
+                    @Override
+                    public Void doInBackground(ExamEntity... params) {
+                        return null;
+                    }
                 });
 
                 Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
@@ -185,6 +206,16 @@ public class StudentActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Exception e) {
                             Log.d(TAG, "deleteStudent: failure", e);
+                        }
+
+                        @Override
+                        public void onPostExecute(Void unused) {
+
+                        }
+
+                        @Override
+                        public Void doInBackground(ExamEntity... params) {
+                            return null;
                         }
                     });
 

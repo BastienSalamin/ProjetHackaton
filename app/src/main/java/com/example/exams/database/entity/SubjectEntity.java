@@ -3,16 +3,26 @@ package com.example.exams.database.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Subject")
 public class SubjectEntity {
-    public SubjectEntity(String SubjectName){
-        this.subjectName = SubjectName;
-    }
 
     @PrimaryKey(autoGenerate = true)
     private int id_Subject;
+
+    @ColumnInfo(name = "subject_name")
+    private String subjectName;
+
+    @Ignore
+    public SubjectEntity(){
+
+    }
+
+    public SubjectEntity(String subjectName){
+        this.subjectName= subjectName;
+    }
 
     public String getSubjectName() {
         return subjectName;
@@ -22,6 +32,11 @@ public class SubjectEntity {
         this.subjectName = subjectName;
     }
 
-    @ColumnInfo(name = "Subject_name")
-    private String subjectName;
+    public int getId_Subject() {
+        return id_Subject;
+    }
+
+    public void setId_Subject(int id_Subject) {
+        this.id_Subject = id_Subject;
+    }
 }
