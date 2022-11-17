@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +16,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.exams.R;
-import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.student.StudentViewModel;
@@ -51,7 +51,7 @@ public class StudentActivity extends AppCompatActivity {
 
         if(checkData){
             String[] studentData = intent.getStringArrayExtra("StudentInfo");
-            String studentId = studentData[4];
+            String studentId = studentData[3];
 
             StudentViewModel.Factory factory = new StudentViewModel.Factory(
                     getApplication(), studentId);
@@ -100,32 +100,28 @@ public class StudentActivity extends AppCompatActivity {
                 EditText editText3 = findViewById(R.id.studentName);
                 String newName = editText3.getText().toString();
 
-                student = new StudentEntity(newClass, newSurname, newName);
-                viewModel.createStudent(student, new OnAsyncEventListener() {
-                    @Override
-                    public void onSuccess() {
-                        Log.d(TAG, "createStudent: success");
-                    }
+                if(newClass.equalsIgnoreCase("") || newSurname.equalsIgnoreCase("") || newName.equalsIgnoreCase("")) {
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    student = new StudentEntity(newClass, newSurname, newName);
+                    viewModel.createStudent(student, new OnAsyncEventListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "createStudent: success");
+                        }
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        Log.d(TAG, "createStudent: failure", e);
-                    }
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.d(TAG, "createStudent: failure", e);
+                        }
+                    });
 
-                    @Override
-                    public void onPostExecute(Void unused) {
-
-                    }
-
-                    @Override
-                    public Void doInBackground(ExamEntity... params) {
-                        return null;
-                    }
-                });
-
-                Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         layout.addView(button);
@@ -149,35 +145,31 @@ public class StudentActivity extends AppCompatActivity {
                 EditText editText3 = findViewById(R.id.studentName);
                 String newName = editText3.getText().toString();
 
-                student.setClassName(newClass);
-                student.setSurname(newSurname);
-                student.setName(newName);
+                if(newClass.equalsIgnoreCase("") || newSurname.equalsIgnoreCase("") || newName.equalsIgnoreCase("")) {
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    student.setClassName(newClass);
+                    student.setSurname(newSurname);
+                    student.setName(newName);
 
-                viewModel.updateStudent(student, new OnAsyncEventListener() {
-                    @Override
-                    public void onSuccess() {
-                        Log.d(TAG, "updateStudent: success");
-                    }
+                    viewModel.updateStudent(student, new OnAsyncEventListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "updateStudent: success");
+                        }
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        Log.d(TAG, "updateStudent: failure", e);
-                    }
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.d(TAG, "updateStudent: failure", e);
+                        }
+                    });
 
-                    @Override
-                    public void onPostExecute(Void unused) {
-
-                    }
-
-                    @Override
-                    public Void doInBackground(ExamEntity... params) {
-                        return null;
-                    }
-                });
-
-                Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         layout.addView(button);
@@ -206,16 +198,6 @@ public class StudentActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Exception e) {
                             Log.d(TAG, "deleteStudent: failure", e);
-                        }
-
-                        @Override
-                        public void onPostExecute(Void unused) {
-
-                        }
-
-                        @Override
-                        public Void doInBackground(ExamEntity... params) {
-                            return null;
                         }
                     });
 

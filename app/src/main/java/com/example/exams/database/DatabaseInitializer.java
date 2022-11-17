@@ -26,6 +26,21 @@ public class DatabaseInitializer {
         addStudent(db, "605_3", "Martroye de Joly", "Alexandre");
         addStudent(db, "605_3", "Salamin", "Bastien");
         addStudent(db, "607_3", "Amano", "Maya");
+        addStudent(db, "605_3", "Vialard", "Céline");
+        addStudent(db, "605_3", "Brouchoud", "François");
+        addStudent(db, "605_3", "Clerc", "Théo");
+        addStudent(db, "605_3", "Dellea", "Jérémie");
+        addStudent(db, "605_3", "Bétrisey", "Julienne");
+        addStudent(db, "605_3", "Bourquin", "Jonathan");
+        addStudent(db, "605_3", "Marguet", "Romain");
+        addStudent(db, "605_3", "Del Buono", "Luca");
+        addStudent(db, "605_3", "Gomez Cabeiro", "Sergio");
+        addStudent(db, "605_3", "Michelet", "Arnaud");
+        addStudent(db, "605_3", "Renna", "Zacharie");
+        addStudent(db, "605_3", "De Blasi", "Simon");
+        addStudent(db, "605_3", "Lonfat", "Milena");
+        addStudent(db, "605_3", "Rey", "Guillaume");
+        addStudent(db, "605_3", "Borrajo", "Elias");
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {

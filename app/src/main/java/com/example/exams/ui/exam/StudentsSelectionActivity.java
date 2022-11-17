@@ -1,7 +1,13 @@
-package com.example.exams.ui.student;
+package com.example.exams.ui.exam;
 
-import static android.graphics.Color.*;
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.DKGRAY;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -10,13 +16,10 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
+import android.widget.Toast;
 
 import com.example.exams.R;
 import com.example.exams.database.entity.StudentEntity;
-import com.example.exams.ui.MainActivity;
 import com.example.exams.viewmodel.student.StudentsListViewModel;
 
 import java.util.ArrayList;
@@ -24,7 +27,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class StudentsActivity extends MainActivity {
+public class StudentsSelectionActivity extends AppCompatActivity {
+    private String[] examData;
+
+    private ArrayList<CheckBox> checkList = new ArrayList<CheckBox>();
+
     private List<StudentEntity> students;
 
     private StudentsListViewModel viewModel;
@@ -32,7 +39,7 @@ public class StudentsActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_students);
+        setContentView(R.layout.activity_students_selection);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,10 +47,13 @@ public class StudentsActivity extends MainActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        Intent intent = getIntent();
+        examData = intent.getStringArrayExtra("ExamsInfo");
+
         viewModel = ViewModelProviders.of(this).get(StudentsListViewModel.class);
 
         viewModel.getAllStudents().observe(this, studentsToList -> {
-            if (studentsToList != null) {
+            if(studentsToList != null) {
                 students = new ArrayList<>();
                 for (StudentEntity student : studentsToList) {
                     students.add(student);
@@ -60,13 +70,13 @@ public class StudentsActivity extends MainActivity {
                     }
                 });
 
-                LinearLayout table = findViewById(R.id.table);
+                LinearLayout table = findViewById(R.id.tableSelection);
 
                 int size = students.size();
 
                 createTitle(table);
 
-                for (int i = 0; i < size; i++) {
+                for (int i = 0 ; i < size ; i++) {
                     createTable(table, i);
                 }
             }
@@ -80,11 +90,11 @@ public class StudentsActivity extends MainActivity {
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setWeightSum(100);
 
-        String[] titles={"Classe", "Nom", "Prénom"};
+        String[] titles={"Classe", "Nom", "Prénom", ""};
 
-        for (int i = 0 ; i < 3 ; i++) {
+        for (int i = 0 ; i < 4 ; i++) {
             LinearLayout.LayoutParams layoutParams;
-            layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 33);
+            layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 25);
             TextView col1 = new TextView(this);
             col1.setText(titles[i]);
             col1.setTextSize(22);
@@ -106,12 +116,9 @@ public class StudentsActivity extends MainActivity {
         row.setLayoutParams(layoutParams);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setWeightSum(100);
-        row.setClickable(true);
-        row.setFocusable(true);
-        row.setBackgroundResource(android.R.drawable.menuitem_background);
         for (int i = 0 ; i < 3 ; i++) {
             LinearLayout.LayoutParams textParams;
-            textParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 33);
+            textParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 25);
             TextView col1 = new TextView(this);
             col1.setText(studentData[i]);
             col1.setTextSize(15);
@@ -124,19 +131,43 @@ public class StudentsActivity extends MainActivity {
             row.addView(col1);
         }
 
-        row.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StudentsActivity.this, StudentActivity.class);
-                intent.putExtra("StudentInfo", studentData);
-                startActivity(intent);
-            }
-        });
+        CheckBox check = new CheckBox(this);
+        check.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 25));
+        checkList.add(check);
+        row.addView(check);
+
         layout.addView(row);
     }
 
-    public void browseStudent(View view) {
-        Intent intent = new Intent(this, StudentActivity.class);
-        startActivity(intent);
+    public void createExam(View view) {
+        List<StudentEntity> checkedStudents = new ArrayList<>();
+        int count = 0;
+        for(int i = 0 ; i < checkList.size() ; i++) {
+            if(checkList.get(i).isChecked() == true) {
+                StudentEntity student = students.get(i);
+                checkedStudents.add(student);
+                count++;
+            }
+        }
+
+        if(count == 0){
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context, "Veuillez choisir au moins un étudiant", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        String data = "";
+        for (int i = 0 ; i < 4 ; i++) {
+            data += examData[i] + " ";
+        }
+        System.out.println(data);
+
+        System.out.println("Nombre d'étudiants : " + count);
+        for(int i = 0 ; i < checkedStudents.size() ; i++) {
+            StudentEntity student = checkedStudents.get(i);
+            System.out.println(student.getClassName() + " " + student.getSurname() + " " + student.getName());
+        }
     }
+
 }
