@@ -5,6 +5,12 @@
     <string name="app_resume">Vos Examens</string>
     <string name="button_next">Suivant</string>
     <string name="button_create">Créer un examen</string>
+    <string name="exam_label_subject">Sujet :</string>
+    <string name="exam_label_date">Date :</string>
+    <string name="exam_hint_date">01.01.2022</string>
+    <string name="exam_label_duration">Durée :</string>
+    <string name="exam_hint_duration">60\'</string>
+    <string name="exam_label_room">Salle :</string>
     <string name="button_list_students">Liste des étudiants</string>
     <string name="add_student">Ajouter un étudiant</string>
     <string name="student_label_class">Classe :</string>

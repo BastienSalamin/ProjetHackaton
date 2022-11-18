@@ -158,7 +158,7 @@ public class StudentsSelectionActivity extends AppCompatActivity {
         }
 
         String data = "";
-        for (int i = 0 ; i < 4 ; i++) {
+        for (int i = 0 ; i < examData.length ; i++) {
             data += examData[i] + " ";
         }
         System.out.println(data);
@@ -166,7 +166,7 @@ public class StudentsSelectionActivity extends AppCompatActivity {
         System.out.println("Nombre d'étudiants : " + count);
         for(int i = 0 ; i < checkedStudents.size() ; i++) {
             StudentEntity student = checkedStudents.get(i);
-            System.out.println(student.getClassName() + " " + student.getSurname() + " " + student.getName());
+            System.out.println(student.getIdStudent() + " " + student.getClassName() + " " + student.getSurname() + " " + student.getName());
         }
     }
 

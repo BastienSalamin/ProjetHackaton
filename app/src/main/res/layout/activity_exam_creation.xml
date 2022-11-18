@@ -16,30 +16,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Sujet :"
+        android:text="@string/exam_label_subject"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <!--Spinner
+    <Spinner
         android:id="@+id/subjectsSpinner"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd=""/>-->
-
-    <EditText
-        android:id="@+id/examSubject"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:hint="Nom du sujet"
-        android:inputType="text"
+        android:layout_marginTop="16dp"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/labelSubject"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.851"
-        app:layout_constraintStart_toEndOf="@+id/labelSubject" />
+        app:layout_constraintStart_toEndOf="@+id/labelSubject"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/labelDate"
@@ -47,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Date :"
+        android:text="@string/exam_label_date"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,14 +52,14 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:hint="01.01.2022"
+        android:hint="@string/exam_hint_date"
         android:inputType="date"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/labelDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.871"
         app:layout_constraintStart_toEndOf="@+id/labelDate"
-        app:layout_constraintTop_toBottomOf="@id/examSubject" />
+        app:layout_constraintTop_toBottomOf="@id/subjectsSpinner" />
 
     <TextView
         android:id="@+id/labelDuration"
@@ -73,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Durée :"
+        android:text="@string/exam_label_duration"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +78,7 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:hint="60 minutes"
+        android:hint="@string/exam_hint_duration"
         android:inputType="text"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/labelDuration"
@@ -99,23 +93,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Salle :"
+        android:text="@string/exam_label_room"
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelDuration" />
 
-    <EditText
-        android:id="@+id/examRoom"
+    <Spinner
+        android:id="@+id/roomsSpinner"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:hint="100"
-        android:inputType="text"
+        android:layout_marginTop="16dp"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/labelRoom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.880"
+        app:layout_constraintHorizontal_bias="0.851"
         app:layout_constraintStart_toEndOf="@+id/labelRoom"
         app:layout_constraintTop_toBottomOf="@id/examDuration" />
 

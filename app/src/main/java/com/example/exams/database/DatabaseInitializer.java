@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.exams.database.entity.ExamEntity;
+import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.database.entity.SubjectEntity;
 
@@ -24,6 +25,11 @@ public class DatabaseInitializer {
     private static void addSubject(final AppDatabase db, final String subjectName) {
         SubjectEntity subject = new SubjectEntity(subjectName);
         db.subjectDao().insert(subject);
+    }
+
+    private static void addRoom(final AppDatabase db, final String roomName) {
+        RoomEntity room = new RoomEntity(roomName);
+        db.roomDao().insert(room);
     }
 
     private static void populateWithTestData(AppDatabase db) {
@@ -50,12 +56,30 @@ public class DatabaseInitializer {
 
         db.subjectDao().deleteAll();
 
-        addSubject(db, "Stats");
-        addSubject(db, "Maths");
-        addSubject(db, "POO");
+        addSubject(db, "Statistiques");
+        addSubject(db, "Mathématiques");
+        addSubject(db, "Programmation");
         addSubject(db, "Cloud");
-        addSubject(db, "DOTNET");
-        addSubject(db, "Option");
+        addSubject(db, "ASP.NET");
+
+        db.roomDao().deleteAll();
+
+        addRoom(db, "VS-BEL.N100");
+        addRoom(db, "VS-BEL.N101");
+        addRoom(db, "VS-BEL.N102");
+        addRoom(db, "VS-BEL.N103");
+        addRoom(db, "VS-BEL.N200");
+        addRoom(db, "VS-BEL.N201");
+        addRoom(db, "VS-BEL.N202");
+        addRoom(db, "VS-BEL.N203");
+        addRoom(db, "VS-BEL.N300");
+        addRoom(db, "VS-BEL.N301");
+        addRoom(db, "VS-BEL.N302");
+        addRoom(db, "VS-BEL.N303");
+        addRoom(db, "VS-BEL.N400");
+        addRoom(db, "VS-BEL.N401");
+        addRoom(db, "VS-BEL.N402");
+        addRoom(db, "VS-BEL.N403");
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {

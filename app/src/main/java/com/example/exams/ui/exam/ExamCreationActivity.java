@@ -9,9 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.exams.R;
@@ -34,6 +36,10 @@ public class ExamCreationActivity extends AppCompatActivity {
 
     private RoomsListViewModel roomViewModel;
 
+    private String[] subjectList;
+
+    private String[] roomList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +61,39 @@ public class ExamCreationActivity extends AppCompatActivity {
                 for(SubjectEntity subject : subjectsToList) {
                     subjects.add(subject);
                 }
-                for(int i = 0 ; i < subjects.size() ; i++){
-                    System.out.println("salut : " + subjects.get(i).getSubjectName());
+
+                subjectList = new String[subjects.size()];
+
+                for(int i = 0 ; i < subjectList.length ; i++) {
+                    subjectList[i] = subjects.get(i).getSubjectName();
                 }
+
+                Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
+                ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjectList);
+                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                subjectSpinner.setAdapter(aa);
+            }
+        });
+
+        roomViewModel = ViewModelProviders.of(this).get(RoomsListViewModel.class);
+
+        roomViewModel.getAllRooms().observe(this, roomsToList -> {
+            if(roomsToList != null) {
+                rooms = new ArrayList<>();
+                for(RoomEntity room : roomsToList) {
+                    rooms.add(room);
+                }
+
+                roomList = new String[rooms.size()];
+
+                for(int i = 0 ; i < roomList.length ; i++) {
+                    roomList[i] = rooms.get(i).getRoomName();
+                }
+
+                Spinner roomSpinner = findViewById(R.id.roomsSpinner);
+                ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomList);
+                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                roomSpinner.setAdapter(aa);
             }
         });
 
@@ -73,8 +109,12 @@ public class ExamCreationActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText editText1 = findViewById(R.id.examSubject);
-                String examSubject = editText1.getText().toString();
+                Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
+                String examSubject = subjectSpinner.getSelectedItem().toString();
+                int position1 = subjectSpinner.getSelectedItemPosition();
+                SubjectEntity subject = subjects.get(position1);
+                int subjectId = subject.getId_Subject();
+                String subjectIdString = Integer.toString(subjectId);
 
                 EditText editText2 = findViewById(R.id.examDate);
                 String examDate = editText2.getText().toString();
@@ -82,15 +122,19 @@ public class ExamCreationActivity extends AppCompatActivity {
                 EditText editText3 = findViewById(R.id.examDuration);
                 String examDuration = editText3.getText().toString();
 
-                EditText editText4 = findViewById(R.id.examRoom);
-                String examRoom = editText4.getText().toString();
+                Spinner roomSpinner = findViewById(R.id.roomsSpinner);
+                String examRoom = roomSpinner.getSelectedItem().toString();
+                int position2 = roomSpinner.getSelectedItemPosition();
+                RoomEntity room = rooms.get(position2);
+                int roomId = room.getId_Room();
+                String roomIdString = Integer.toString(roomId);
 
-                if(examSubject.equalsIgnoreCase("") || examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("") || examRoom.equalsIgnoreCase("")) {
+                if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("")) {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    String[] examData = {examSubject, examDate, examDuration, examRoom};
+                    String[] examData = {subjectIdString, examSubject, examDate, examDuration, roomIdString, examRoom};
 
                     Intent intent = new Intent(ExamCreationActivity.this, StudentsSelectionActivity.class);
                     intent.putExtra("ExamsInfo", examData);

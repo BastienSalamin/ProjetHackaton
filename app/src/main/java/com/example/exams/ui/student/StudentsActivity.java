@@ -75,7 +75,7 @@ public class StudentsActivity extends MainActivity {
 
     @Override
     public void onBackPressed(){
-        this.onBackPressed();
+        this.finish();
     }
 
     private void createTitle(LinearLayout layout) {
