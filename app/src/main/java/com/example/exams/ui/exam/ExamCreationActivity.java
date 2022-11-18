@@ -14,9 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.exams.R;
+import com.example.exams.database.entity.RoomEntity;
+import com.example.exams.database.entity.SubjectEntity;
+
+import java.util.List;
 
 public class ExamCreationActivity extends AppCompatActivity {
     private ConstraintLayout layout;
+
+    private List<SubjectEntity> subjects;
+
+    private List<RoomEntity> rooms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

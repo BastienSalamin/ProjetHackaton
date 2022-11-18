@@ -10,13 +10,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.example.exams.R;
+import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.ui.exam.ExamCreationActivity;
 import com.example.exams.ui.mgmt.SettingsActivity;
 import com.example.exams.ui.student.StudentsActivity;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private List<ExamEntity> exams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createExamsList(ListView listView, int pos) {
+        ExamEntity exam;
+
+        String[] examData = {};
     }
 
     public void browseStudents(View view) {

@@ -1,4 +1,4 @@
 package com.example.exams.viewmodel.exam;
 
-public class EffaceMoi {
+public class ExamsListViewModel {
 }
