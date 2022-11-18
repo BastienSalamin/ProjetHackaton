@@ -56,7 +56,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                     subjects.add(subject);
                 }
                 for(int i = 0 ; i < subjects.size() ; i++){
-                    System.out.println("salut : " + subjects.get(i));
+                    System.out.println("salut : " + subjects.get(i).getSubjectName());
                 }
             }
         });

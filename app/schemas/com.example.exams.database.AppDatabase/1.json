@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c9cf5e604fab5b25f4e9f257f2ff1f98",
+    "identityHash": "7fd400faf380571775302c4cd1989ced",
     "entities": [
       {
         "tableName": "Student",
@@ -140,7 +140,7 @@
       },
       {
         "tableName": "Room",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_Room` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `room_name` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_Room` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `room_name` TEXT)",
         "fields": [
           {
             "fieldPath": "id_Room",
@@ -151,8 +151,8 @@
           {
             "fieldPath": "roomName",
             "columnName": "room_name",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -194,7 +194,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c9cf5e604fab5b25f4e9f257f2ff1f98')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7fd400faf380571775302c4cd1989ced')"
     ]
   }
 }

@@ -70,7 +70,6 @@ public abstract class AppDatabase extends RoomDatabase {
                 database.examDao().deleteAll();
                 database.roomDao().deleteAll();
 
-
                 DatabaseInitializer.populateDatabase(database);
             });
         });

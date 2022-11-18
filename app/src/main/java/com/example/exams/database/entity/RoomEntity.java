@@ -9,15 +9,15 @@ public class RoomEntity {
     @PrimaryKey(autoGenerate = true)
     private int id_Room;
 
-    public RoomEntity(int roomName){
+    public RoomEntity(String roomName){
         this.roomName = roomName;
     }
 
-    public int getRoomName() {
+    public String getRoomName() {
         return roomName;
     }
 
-    public void setRoomName(int roomName) {
+    public void setRoomName(String roomName) {
         this.roomName = roomName;
     }
 
@@ -30,6 +30,6 @@ public class RoomEntity {
     }
 
     @ColumnInfo(name = "room_name")
-    private int roomName;
+    private String roomName;
 
 }
