@@ -5,6 +5,13 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.exams.BaseApp;
+import com.example.exams.database.async.exam.CreateExam;
+import com.example.exams.database.async.exam.DeleteExam;
+import com.example.exams.database.async.exam.UpdateExam;
+import com.example.exams.database.async.subject.CreateSubject;
+import com.example.exams.database.async.subject.DeleteSubject;
+import com.example.exams.database.async.subject.UpdateSubject;
+import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.database.entity.SubjectEntity;
 import com.example.exams.util.OnAsyncEventListener;
@@ -31,4 +38,19 @@ public class SubjectRepository {
         return ((BaseApp) application).getDatabase().subjectDao().getAll();
     }
 
+    public LiveData<SubjectEntity> getSubject(final String subID, Application application){
+        return ((BaseApp) application).getDatabase().subjectDao().getById(subID);
+    }
+
+    public void insert(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
+        new CreateSubject(application, callback).execute(sub);
+    }
+
+    public void update(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
+        new UpdateSubject(application, callback).execute(sub);
+    }
+
+    public void delete(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
+        new DeleteSubject(application, callback).execute(sub);
+    }
 }
