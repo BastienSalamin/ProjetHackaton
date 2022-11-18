@@ -53,7 +53,10 @@ public class ExamCreationActivity extends AppCompatActivity {
             if(subjectsToList != null) {
                 subjects = new ArrayList<>();
                 for(SubjectEntity subject : subjectsToList) {
-
+                    subjects.add(subject);
+                }
+                for(int i = 0 ; i < subjects.size() ; i++){
+                    System.out.println("salut : " + subjects.get(i));
                 }
             }
         });

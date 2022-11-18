@@ -18,9 +18,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:onClick="createExam"
             android:text="@string/button_create"
             android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tableSelection"
             app:layout_constraintStart_toStartOf="@id/tableSelection"
             app:layout_constraintTop_toBottomOf="@id/tableSelection" />
