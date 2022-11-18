@@ -6,14 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.exams.BaseApp;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.database.repository.StudentRepository;
-import com.example.exams.util.OnAsyncEventListener;
-
 import java.util.List;
 
 public class StudentsListViewModel extends AndroidViewModel {
@@ -41,7 +36,4 @@ public class StudentsListViewModel extends AndroidViewModel {
         return observableStudents;
     }
 
-    public void deleteStudents(StudentEntity student, OnAsyncEventListener callback) {
-        repository.delete(student, callback, application);
-    }
 }

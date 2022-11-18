@@ -27,5 +27,8 @@ public class SubjectRepository {
         return instance;
     }
 
+    public LiveData<List<SubjectEntity>> getAllSubjects(Application application) {
+        return ((BaseApp) application).getDatabase().subjectDao().getAll();
+    }
 
 }

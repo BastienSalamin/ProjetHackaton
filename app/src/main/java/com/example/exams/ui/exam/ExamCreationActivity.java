@@ -3,6 +3,7 @@ package com.example.exams.ui.exam;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,10 @@ import android.widget.Toast;
 import com.example.exams.R;
 import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.SubjectEntity;
+import com.example.exams.viewmodel.room.RoomsListViewModel;
+import com.example.exams.viewmodel.subject.SubjectsListViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExamCreationActivity extends AppCompatActivity {
@@ -25,6 +29,10 @@ public class ExamCreationActivity extends AppCompatActivity {
     private List<SubjectEntity> subjects;
 
     private List<RoomEntity> rooms;
+
+    private SubjectsListViewModel subjectViewModel;
+
+    private RoomsListViewModel roomViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +47,18 @@ public class ExamCreationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        createNextButton();
+        subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
 
+        subjectViewModel.getAllSubjects().observe(this, subjectsToList -> {
+            if(subjectsToList != null) {
+                subjects = new ArrayList<>();
+                for(SubjectEntity subject : subjectsToList) {
+
+                }
+            }
+        });
+
+        createNextButton();
     }
 
     public void createNextButton() {

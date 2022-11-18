@@ -17,12 +17,14 @@ import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.ui.exam.ExamCreationActivity;
 import com.example.exams.ui.mgmt.SettingsActivity;
 import com.example.exams.ui.student.StudentsActivity;
+import com.example.exams.viewmodel.exam.ExamsListViewModel;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private List<ExamEntity> exams;
+
+    private ExamsListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
