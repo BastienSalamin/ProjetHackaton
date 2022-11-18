@@ -66,7 +66,10 @@ public abstract class AppDatabase extends RoomDatabase {
             database.runInTransaction(() -> {
                 Log.i(TAG, "Suppression des données enregistrées.");
                 database.studentDao().deleteAll();
-                // database.examDao().deleteAll();
+                database.subjectDao().deleteAll();
+                database.examDao().deleteAll();
+                database.roomDao().deleteAll();
+
 
                 DatabaseInitializer.populateDatabase(database);
             });

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.database.entity.SubjectEntity;
 
 public class DatabaseInitializer {
     public static final String TAG = "DatabaseInitializer";
@@ -18,6 +19,11 @@ public class DatabaseInitializer {
     private static void addStudent(final AppDatabase db, final String className, final String surname, final String name) {
         StudentEntity student = new StudentEntity(className, surname, name);
         db.studentDao().insert(student);
+    }
+
+    private static void addSubject(final AppDatabase db, final String subjectName) {
+        SubjectEntity subject = new SubjectEntity(subjectName);
+        db.subjectDao().insert(subject);
     }
 
     private static void populateWithTestData(AppDatabase db) {
@@ -41,6 +47,15 @@ public class DatabaseInitializer {
         addStudent(db, "605_3", "Lonfat", "Milena");
         addStudent(db, "605_3", "Rey", "Guillaume");
         addStudent(db, "605_3", "Borrajo", "Elias");
+
+        db.subjectDao().deleteAll();
+
+        addSubject(db, "Stats");
+        addSubject(db, "Maths");
+        addSubject(db, "POO");
+        addSubject(db, "Cloud");
+        addSubject(db, "DOTNET");
+        addSubject(db, "Option");
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
