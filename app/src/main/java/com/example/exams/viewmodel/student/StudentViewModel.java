@@ -38,7 +38,6 @@ public class StudentViewModel extends AndroidViewModel {
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
-
         @NonNull
         private final Application application;
 

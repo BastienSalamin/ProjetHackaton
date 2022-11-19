@@ -17,8 +17,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.exams.R;
+import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.SubjectEntity;
+import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.room.RoomsListViewModel;
 import com.example.exams.viewmodel.subject.SubjectsListViewModel;
 
@@ -28,6 +30,8 @@ import java.util.List;
 public class ExamCreationActivity extends AppCompatActivity {
     private ConstraintLayout layout;
 
+    private ExamEntity exam;
+
     private List<SubjectEntity> subjects;
 
     private List<RoomEntity> rooms;
@@ -35,6 +39,8 @@ public class ExamCreationActivity extends AppCompatActivity {
     private SubjectsListViewModel subjectViewModel;
 
     private RoomsListViewModel roomViewModel;
+
+    private ExamViewModel examViewModel;
 
     private String[] subjectList;
 

@@ -19,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.exams.R;
+import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.student.StudentsListViewModel;
 
 import java.util.ArrayList;
@@ -32,7 +34,11 @@ public class StudentsSelectionActivity extends AppCompatActivity {
 
     private ArrayList<CheckBox> checkList = new ArrayList<CheckBox>();
 
+    private ExamEntity exam;
+
     private List<StudentEntity> students;
+
+    private ExamViewModel examViewModel;
 
     private StudentsListViewModel viewModel;
 
