@@ -52,6 +52,15 @@
                 android:value=".ui.exam.ExamCreationActivity" />
         </activity>
         <activity
+            android:name=".ui.exam.StudentsEditionActivity"
+            android:label="Sélection des étudiants"
+            android:parentActivityName=".ui.exam.ExamCreationActivity"
+            android:theme="@style/Theme.Exams.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.exam.ExamCreationActivity" />
+        </activity>
+        <activity
             android:name=".ui.student.StudentsActivity"
             android:label="Liste des étudiants"
             android:parentActivityName=".ui.MainActivity"

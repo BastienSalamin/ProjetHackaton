@@ -96,8 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, ExamCreationActivity.class);
                 intent.putExtra("ExamInfo", examInfos);
                 startActivity(intent);
-
-                System.out.println(examSelected.getIdExam() + " " + examSelected.getDate() + " " + examSelected.getDuration() + " " + examSelected.getNumberStudents() + " " + examSelected.getIdRoom() + " " + examSelected.getIdSubject());
             }
         });
         listView.setAdapter(listAdapter);

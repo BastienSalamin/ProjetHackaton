@@ -259,7 +259,38 @@ public class ExamCreationActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
+                String examSubject = subjectSpinner.getSelectedItem().toString();
+                int position1 = subjectSpinner.getSelectedItemPosition();
+                SubjectEntity subject = subjects.get(position1);
+                int subjectId = subject.getId_Subject();
+                String subjectIdString = Integer.toString(subjectId);
 
+                EditText editText2 = findViewById(R.id.examDate);
+                String examDate = editText2.getText().toString();
+
+                EditText editText3 = findViewById(R.id.examDuration);
+                String examDuration = editText3.getText().toString();
+
+                Spinner roomSpinner = findViewById(R.id.roomsSpinner);
+                String examRoom = roomSpinner.getSelectedItem().toString();
+                int position2 = roomSpinner.getSelectedItemPosition();
+                RoomEntity room = rooms.get(position2);
+                int roomId = room.getId_Room();
+                String roomIdString = Integer.toString(roomId);
+
+                if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("")) {
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    String[] examData = {Integer.toString(examEntity.getIdExam()), subjectIdString, examSubject, examDate, examDuration, roomIdString, examRoom};
+
+                    Intent intent = new Intent(ExamCreationActivity.this, StudentsEditionActivity.class);
+                    intent.putExtra("ExamsInfo", examData);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
         layout.addView(button);
