@@ -25,4 +25,7 @@ public interface ExamsStudentsDao {
     @Transaction
     @Query("SELECT * FROM STUDENT")
     public List<StudentWithExams> getStudentWithExams();
+
+    @Query("DELETE FROM ExamsStudents")
+    void deleteAll();
 }

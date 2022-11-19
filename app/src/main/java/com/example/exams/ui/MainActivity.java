@@ -3,6 +3,7 @@ package com.example.exams.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.exams.R;
@@ -19,6 +22,8 @@ import com.example.exams.ui.mgmt.SettingsActivity;
 import com.example.exams.ui.student.StudentsActivity;
 import com.example.exams.viewmodel.exam.ExamsListViewModel;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,12 +31,31 @@ public class MainActivity extends AppCompatActivity {
 
     private ExamsListViewModel viewModel;
 
+    private List<String> examData = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        viewModel = ViewModelProviders.of(this).get(ExamsListViewModel.class);
+
+        viewModel.getAllExams().observe(this, examsToList -> {
+            if(examsToList != null) {
+                exams = new ArrayList<>();
+                for(ExamEntity exam : examsToList) {
+                    exams.add(exam);
+                }
+
+                ListView list = findViewById(R.id.examList);
+
+                for (int i = 0; i < exams.size() ; i++) {
+                    createExamsList(list, i);
+                }
+            }
+        });
     }
 
     @Override
@@ -51,9 +75,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createExamsList(ListView listView, int pos) {
-        ExamEntity exam;
+        ExamEntity exam = exams.get(pos);
 
-        String[] examData = {};
+        String examString = "Examen " + (pos+1) + " :\nDate : " + exam.getDate() + " Durée : " + exam.getDuration() + " Étudiants : " + exam.getNumberStudents();
+
+        examData.add(examString);
+
+        ArrayList<String> examsList = new ArrayList<String>();
+        examsList.addAll(examData);
+
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examsList);
+        listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] examInfos = {Integer.toString(exam.getIdExam()), exam.getDate(), Integer.toString(exam.getDuration()), Integer.toString(exam.getNumberStudents()), Integer.toString(exam.getIdRoom()), Integer.toString(exam.getIdSubject())};
+
+
+
+                System.out.println(exam.getIdExam() + " " + exam.getDate() + " " + exam.getDuration() + " " + exam.getNumberStudents());
+            }
+        });
     }
 
     public void browseStudents(View view) {
