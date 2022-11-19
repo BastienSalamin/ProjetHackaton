@@ -15,7 +15,7 @@ public class StudentWithExams {
 
     @Relation(
             parentColumn = "idStudent",
-            entityColumn = "id_Exam",
+            entityColumn = "idExam",
             associateBy = @Junction(ExamsStudents.class)
     )
     public List<ExamEntity> exams;

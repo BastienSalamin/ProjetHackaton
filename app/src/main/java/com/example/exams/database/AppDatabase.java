@@ -13,7 +13,9 @@ import android.util.Log;
 import java.util.concurrent.Executors;
 
 // import com.example.exams.database.dao.ExamDao;
+import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.dao.ExamDao;
+import com.example.exams.database.dao.ExamsStudentsDao;
 import com.example.exams.database.dao.RoomDao;
 import com.example.exams.database.dao.StudentDao;
 // import com.example.exams.database.entity.ExamEntity;
@@ -23,7 +25,7 @@ import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.database.entity.SubjectEntity;
 
-@Database(entities = {StudentEntity.class, ExamEntity.class, RoomEntity.class, SubjectEntity.class}, version = 1)
+@Database(entities = {StudentEntity.class, ExamEntity.class, RoomEntity.class, SubjectEntity.class, ExamsStudents.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
     private static AppDatabase instance;
@@ -32,6 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ExamDao examDao();
     public abstract RoomDao roomDao();
     public abstract SubjectDao subjectDao();
+    public abstract ExamsStudentsDao examsStudentsDao();
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
     public static AppDatabase getInstance(final Context context) {

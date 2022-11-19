@@ -15,7 +15,7 @@ public class ExamWithStudents {
     @Embedded public ExamEntity exam;
 
     @Relation(
-            parentColumn = "id_Exam",
+            parentColumn = "idExam",
             entityColumn = "idStudent",
             associateBy = @Junction(ExamsStudents.class)
     )

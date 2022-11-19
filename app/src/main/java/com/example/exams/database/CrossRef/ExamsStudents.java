@@ -3,18 +3,23 @@ package com.example.exams.database.CrossRef;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(primaryKeys = {"id_Exam", "idStudent"})
+@Entity(tableName = "ExamsStudents",primaryKeys = {"idExam", "idStudent"})
 public class ExamsStudents {
 
-    private long id_Exam;
+    private long idExam;
     private long idStudent;
 
-    public long getId_Exam() {
-        return id_Exam;
+    public ExamsStudents(long idExam, long idStudent) {
+        this.idExam = idExam;
+        this.idStudent = idStudent;
     }
 
-    public void setId_Exam(long id_Exam) {
-        this.id_Exam = id_Exam;
+    public long getIdExam() {
+        return idExam;
+    }
+
+    public void setIdExam(long idExam) {
+        this.idExam = idExam;
     }
 
     public long getIdStudent() {

@@ -4,10 +4,13 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import com.example.exams.BaseApp;
+import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.entity.ExamEntity;
+import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.util.OnAsyncEventListener;
 
-public class CreateExam extends AsyncTask<ExamEntity, Void, Void> {
+public class CreateExam extends AsyncTask<ExamWithStudents, Void, Void> {
     private Application application;
     private OnAsyncEventListener callback;
     private Exception exception;
@@ -18,10 +21,14 @@ public class CreateExam extends AsyncTask<ExamEntity, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(ExamEntity... params) {
+    protected Void doInBackground(ExamWithStudents... params) {
         try {
-            for (ExamEntity exam : params){
-                ((BaseApp) application).getDatabase().examDao().insert(exam);
+            for (ExamWithStudents exam : params){
+                long id = ((BaseApp) application).getDatabase().examDao().insert(exam.exam);
+                for (StudentEntity student : exam.students) {
+                    ExamsStudents examsStudents = new ExamsStudents(id, student.getIdStudent());
+                    ((BaseApp) application).getDatabase().examsStudentsDao().insert(examsStudents);
+                }
             }
         }catch (Exception e){
             exception = e;

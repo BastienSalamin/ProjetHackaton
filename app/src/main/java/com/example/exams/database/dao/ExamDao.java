@@ -21,14 +21,14 @@ import java.util.List;
 @Dao
 public interface ExamDao {
 
-    @Query("SELECT * FROM Exam WHERE id_Exam = :id")
+    @Query("SELECT * FROM Exam WHERE idExam = :id")
     LiveData<ExamEntity> getById(String id);
 
     @Query("SELECT * FROM Exam")
     LiveData<List<ExamEntity>> getAll();
 
     @Transaction
-    @Query("SELECT * FROM Exam WHERE id_Exam != :id")
+    @Query("SELECT * FROM Exam WHERE idExam != :id")
     LiveData<List<ExamEntity>> getOtherClientsWithAccounts(String id);
 
     @Insert

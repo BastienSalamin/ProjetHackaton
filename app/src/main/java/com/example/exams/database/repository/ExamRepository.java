@@ -9,6 +9,7 @@ import com.example.exams.database.async.exam.CreateExam;
 import com.example.exams.database.async.exam.DeleteExam;
 import com.example.exams.database.async.exam.UpdateExam;
 import com.example.exams.database.entity.ExamEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.util.OnAsyncEventListener;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ExamRepository {
         return ((BaseApp) application).getDatabase().examDao().getById(examID);
     }
 
-    public void insert(final ExamEntity exam, OnAsyncEventListener callback, Application application){
+    public void insert(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
         new CreateExam(application, callback).execute(exam);
     }
 

@@ -43,7 +43,7 @@ public class ExamEntity {
     }
 
     @PrimaryKey(autoGenerate = true)
-    private int id_Exam;
+    private int idExam;
 
     @ColumnInfo(name = "Date")
     private String date;
@@ -62,12 +62,12 @@ public class ExamEntity {
 
     private String className;
 
-    public int getId_Exam() {
-        return id_Exam;
+    public int getIdExam() {
+        return idExam;
     }
 
-    public void setId_Exam(int id_Exam) {
-        this.id_Exam = id_Exam;
+    public void setIdExam(int id_Exam) {
+        this.idExam = id_Exam;
     }
 
     public String getDate() {

@@ -5,11 +5,14 @@ import static android.graphics.Color.DKGRAY;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,8 @@ import android.widget.Toast;
 import com.example.exams.R;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
+import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.student.StudentsListViewModel;
 
@@ -30,11 +35,13 @@ import java.util.Comparator;
 import java.util.List;
 
 public class StudentsSelectionActivity extends AppCompatActivity {
+    private static final String TAG = "ExamCreationActivity";
+
     private String[] examData;
 
     private ArrayList<CheckBox> checkList = new ArrayList<CheckBox>();
 
-    private ExamEntity exam;
+    private ExamWithStudents exam;
 
     private List<StudentEntity> students;
 
@@ -55,6 +62,9 @@ public class StudentsSelectionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         examData = intent.getStringArrayExtra("ExamsInfo");
+
+        ExamViewModel.Factory factory = new ExamViewModel.Factory(getApplication(), "0");
+        examViewModel = ViewModelProviders.of((FragmentActivity) this, (ViewModelProvider.Factory) factory).get(ExamViewModel.class);
 
         viewModel = ViewModelProviders.of(this).get(StudentsListViewModel.class);
 
@@ -163,17 +173,31 @@ public class StudentsSelectionActivity extends AppCompatActivity {
             return;
         }
 
-        String data = "";
-        for (int i = 0 ; i < examData.length ; i++) {
-            data += examData[i] + " ";
-        }
-        System.out.println(data);
+        exam = new ExamWithStudents();
+        exam.exam = new ExamEntity();
+        exam.exam.setDate(examData[2]);
+        exam.exam.setDuration(Integer.parseInt(examData[3]));
+        exam.exam.setNumberStudents(count);
+        exam.exam.setIdRoom(Integer.parseInt(examData[4]));
+        exam.exam.setIdSubject(Integer.parseInt(examData[0]));
+        exam.students = new ArrayList<StudentEntity>();
 
-        System.out.println("Nombre d'étudiants : " + count);
         for(int i = 0 ; i < checkedStudents.size() ; i++) {
             StudentEntity student = checkedStudents.get(i);
-            System.out.println(student.getIdStudent() + " " + student.getClassName() + " " + student.getSurname() + " " + student.getName());
+            exam.students.add(student);
         }
+
+        examViewModel.createExam(exam, new OnAsyncEventListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "createExam: success");
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG, "createExam: failure", e);
+            }
+        });
     }
 
 }

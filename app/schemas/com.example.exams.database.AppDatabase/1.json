@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7fd400faf380571775302c4cd1989ced",
+    "identityHash": "a384938e568d690a6f3bf547cadc3101",
     "entities": [
       {
         "tableName": "Student",
@@ -44,11 +44,11 @@
       },
       {
         "tableName": "Exam",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_Exam` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Date` TEXT, `Duration` INTEGER NOT NULL, `Nbre_of_Students` INTEGER NOT NULL, `idSubject` INTEGER NOT NULL, `idRoom` INTEGER NOT NULL, `className` TEXT, FOREIGN KEY(`idRoom`) REFERENCES `Room`(`id_Room`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idSubject`) REFERENCES `Subject`(`id_Subject`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idExam` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Date` TEXT, `Duration` INTEGER NOT NULL, `Nbre_of_Students` INTEGER NOT NULL, `idSubject` INTEGER NOT NULL, `idRoom` INTEGER NOT NULL, `className` TEXT, FOREIGN KEY(`idRoom`) REFERENCES `Room`(`id_Room`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idSubject`) REFERENCES `Subject`(`id_Subject`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
-            "fieldPath": "id_Exam",
-            "columnName": "id_Exam",
+            "fieldPath": "idExam",
+            "columnName": "idExam",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -91,7 +91,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id_Exam"
+            "idExam"
           ],
           "autoGenerate": true
         },
@@ -189,12 +189,39 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "ExamsStudents",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idExam` INTEGER NOT NULL, `idStudent` INTEGER NOT NULL, PRIMARY KEY(`idExam`, `idStudent`))",
+        "fields": [
+          {
+            "fieldPath": "idExam",
+            "columnName": "idExam",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idStudent",
+            "columnName": "idStudent",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idExam",
+            "idStudent"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7fd400faf380571775302c4cd1989ced')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a384938e568d690a6f3bf547cadc3101')"
     ]
   }
 }
