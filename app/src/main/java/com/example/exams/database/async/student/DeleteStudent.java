@@ -31,8 +31,10 @@ public class DeleteStudent extends AsyncTask<StudentEntity, Void, Void> {
     @Override
     protected Void doInBackground(StudentEntity... params) {
         try {
-            for(StudentEntity student : params)
+            for(StudentEntity student : params){
                 ((BaseApp) application).getDatabase().studentDao().delete(student);
+                ((BaseApp) application).getDatabase().examsStudentsDao().deleteStudent(Long.toString(student.getIdStudent()));
+            }
         } catch (Exception e) {
             exception = e;
         }

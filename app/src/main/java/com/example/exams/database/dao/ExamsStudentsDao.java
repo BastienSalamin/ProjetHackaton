@@ -28,4 +28,10 @@ public interface ExamsStudentsDao {
 
     @Query("DELETE FROM ExamsStudents")
     void deleteAll();
+
+    @Query("DELETE FROM ExamsStudents WHERE idExam = :idExam")
+    void deleteExam(String idExam);
+
+    @Query("DELETE FROM ExamsStudents WHERE idStudent = :idStudent")
+    void deleteStudent(String idStudent);
 }

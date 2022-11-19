@@ -33,8 +33,11 @@ public class DeleteExam extends AsyncTask<ExamEntity, Void, Void> {
     @Override
     protected Void doInBackground(ExamEntity... params){
         try {
-            for(@SuppressLint("SuspiciousIndentation") ExamEntity exam : params)
-            ((BaseApp)application).getDatabase().examDao().delete(exam);
+            for(ExamEntity exam : params){
+                ((BaseApp)application).getDatabase().examDao().delete(exam);
+                ((BaseApp)application).getDatabase().examsStudentsDao().deleteExam(Integer.toString(exam.getIdExam()));
+            }
+
         }catch (Exception e){
             exception = e;
         }

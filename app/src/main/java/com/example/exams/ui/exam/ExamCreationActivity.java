@@ -4,11 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +24,8 @@ import com.example.exams.R;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.SubjectEntity;
+import com.example.exams.ui.MainActivity;
+import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.room.RoomsListViewModel;
 import com.example.exams.viewmodel.subject.SubjectsListViewModel;
@@ -29,15 +34,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExamCreationActivity extends AppCompatActivity {
+    private static final String TAG = "ExamEditActivity";
+
     private ConstraintLayout layout;
 
     private List<SubjectEntity> subjects;
 
     private List<RoomEntity> rooms;
 
+    private ExamEntity examEntity;
+
     private SubjectsListViewModel subjectViewModel;
 
     private RoomsListViewModel roomViewModel;
+
+    private ExamViewModel examViewModel;
 
     private String[] subjectList;
 
@@ -64,6 +75,15 @@ public class ExamCreationActivity extends AppCompatActivity {
 
         if(checkData){
             examInfo = intent.getStringArrayExtra("ExamInfo");
+            String examId = examInfo[0];
+
+            ExamViewModel.Factory factory = new ExamViewModel.Factory(getApplication(), examId);
+            examViewModel = ViewModelProviders.of((FragmentActivity) this, (ViewModelProvider.Factory) factory).get(ExamViewModel.class);
+            examViewModel.getExam().observe(this, entity -> {
+                if(entity != null) {
+                    examEntity = entity;
+                }
+            });
 
             subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
 
@@ -259,7 +279,21 @@ public class ExamCreationActivity extends AppCompatActivity {
                 alertDialog.setCancelable(false);
 
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui", (dialog, which) -> {
+                    examViewModel.deleteExam(examEntity, new OnAsyncEventListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "deleteExam: success");
+                        }
 
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.d(TAG, "deleteExam: failure", e);
+                        }
+                    });
+
+                    Intent intent = new Intent(ExamCreationActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 });
 
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non", (dialog, which) -> alertDialog.dismiss());
