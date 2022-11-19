@@ -73,11 +73,6 @@ public class StudentsActivity extends MainActivity {
         });
     }
 
-    @Override
-    public void onBackPressed(){
-        this.finish();
-    }
-
     private void createTitle(LinearLayout layout) {
         LinearLayout row = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 6);

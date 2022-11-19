@@ -7,7 +7,7 @@
     <string name="button_create">Créer un examen</string>
     <string name="exam_label_subject">Sujet :</string>
     <string name="exam_label_date">Date :</string>
-    <string name="exam_hint_date">01.01.2022</string>
+    <string name="exam_hint_date">01.01.2023</string>
     <string name="exam_label_duration">Durée :</string>
     <string name="exam_hint_duration">60\'</string>
     <string name="exam_label_room">Salle :</string>

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a384938e568d690a6f3bf547cadc3101",
+    "identityHash": "79f0b782d3302b17ab5c35d9eeb1a687",
     "entities": [
       {
         "tableName": "Student",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "Exam",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idExam` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Date` TEXT, `Duration` INTEGER NOT NULL, `Nbre_of_Students` INTEGER NOT NULL, `idSubject` INTEGER NOT NULL, `idRoom` INTEGER NOT NULL, `className` TEXT, FOREIGN KEY(`idRoom`) REFERENCES `Room`(`id_Room`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idSubject`) REFERENCES `Subject`(`id_Subject`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idExam` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Date` TEXT, `Duration` INTEGER NOT NULL, `Nbre_of_Students` INTEGER NOT NULL, `idSubject` INTEGER NOT NULL, `idRoom` INTEGER NOT NULL, FOREIGN KEY(`idRoom`) REFERENCES `Room`(`id_Room`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idSubject`) REFERENCES `Subject`(`id_Subject`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "idExam",
@@ -81,12 +81,6 @@
             "columnName": "idRoom",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "className",
-            "columnName": "className",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -221,7 +215,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a384938e568d690a6f3bf547cadc3101')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '79f0b782d3302b17ab5c35d9eeb1a687')"
     ]
   }
 }

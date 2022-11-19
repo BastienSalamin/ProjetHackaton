@@ -24,15 +24,8 @@ public interface StudentDao {
     @Query("SELECT * FROM Student")
     LiveData<List<StudentEntity>> getAll();
 
-    @Transaction
-    @Query("SELECT * FROM Student WHERE idStudent != :id")
-    LiveData<List<StudentEntity>> getOtherClientsWithAccounts(String id);
-
     @Insert
     long insert(StudentEntity studentEntity) throws SQLiteConstraintException;
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<StudentEntity> studentEntities);
 
     @Update
     void update(StudentEntity studentEntity);

@@ -24,15 +24,8 @@ public interface SubjectDao {
     @Query("SELECT * FROM Subject")
     LiveData<List<SubjectEntity>> getAll();
 
-    @Transaction
-    @Query("SELECT * FROM Subject WHERE id_subject != :id")
-    LiveData<List<SubjectEntity>> getOtherClientsWithAccounts(String id);
-
     @Insert
     long insert(SubjectEntity subjectEntity) throws SQLiteConstraintException;
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<SubjectEntity> subjectEntities);
 
     @Update
     void update(SubjectEntity subjectEntity);

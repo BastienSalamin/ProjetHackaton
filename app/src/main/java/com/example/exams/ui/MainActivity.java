@@ -51,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
                 ListView list = findViewById(R.id.examList);
 
-                for (int i = 0; i < exams.size() ; i++) {
-                    createExamsList(list, i);
+                if(list != null){
+                    for (int i = 0; i < exams.size() ; i++) {
+                        createExamsList(list, i);
+                    }
                 }
             }
         });
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void createExamsList(ListView listView, int pos) {
         ExamEntity exam = exams.get(pos);
 
-        String examString = "Examen " + (pos+1) + " :\nDate : " + exam.getDate() + " Durée : " + exam.getDuration() + " Étudiants : " + exam.getNumberStudents();
+        String examString = "Examen " + (pos+1) + " :\nDate : " + exam.getDate() + "   Durée : " + exam.getDuration() + "     Étudiants : " + exam.getNumberStudents();
 
         examData.add(examString);
 
@@ -85,17 +87,20 @@ public class MainActivity extends AppCompatActivity {
         examsList.addAll(examData);
 
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examsList);
-        listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String[] examInfos = {Integer.toString(exam.getIdExam()), exam.getDate(), Integer.toString(exam.getDuration()), Integer.toString(exam.getNumberStudents()), Integer.toString(exam.getIdRoom()), Integer.toString(exam.getIdSubject())};
+                ExamEntity examSelected = exams.get(i);
+                String[] examInfos = {Integer.toString(examSelected.getIdExam()), examSelected.getDate(), Integer.toString(examSelected.getDuration()), Integer.toString(examSelected.getNumberStudents()), Integer.toString(examSelected.getIdRoom()), Integer.toString(examSelected.getIdSubject())};
 
+                Intent intent = new Intent(MainActivity.this, ExamCreationActivity.class);
+                intent.putExtra("ExamInfo", examInfos);
+                startActivity(intent);
 
-
-                System.out.println(exam.getIdExam() + " " + exam.getDate() + " " + exam.getDuration() + " " + exam.getNumberStudents());
+                System.out.println(examSelected.getIdExam() + " " + examSelected.getDate() + " " + examSelected.getDuration() + " " + examSelected.getNumberStudents() + " " + examSelected.getIdRoom() + " " + examSelected.getIdSubject());
             }
         });
+        listView.setAdapter(listAdapter);
     }
 
     public void browseStudents(View view) {

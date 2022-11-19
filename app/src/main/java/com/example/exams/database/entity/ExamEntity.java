@@ -60,8 +60,6 @@ public class ExamEntity {
     @ColumnInfo(name = "idRoom")
     private int idRoom;
 
-    private String className;
-
     public int getIdExam() {
         return idExam;
     }
@@ -92,14 +90,6 @@ public class ExamEntity {
 
     public void setNumberStudents(int numberStudents) {
         this.numberStudents = numberStudents;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     public int getIdSubject() {

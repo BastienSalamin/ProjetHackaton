@@ -202,10 +202,9 @@ public class StudentsSelectionActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(StudentsSelectionActivity.this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 
 }

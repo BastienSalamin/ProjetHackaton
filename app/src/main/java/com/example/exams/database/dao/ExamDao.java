@@ -27,15 +27,8 @@ public interface ExamDao {
     @Query("SELECT * FROM Exam")
     LiveData<List<ExamEntity>> getAll();
 
-    @Transaction
-    @Query("SELECT * FROM Exam WHERE idExam != :id")
-    LiveData<List<ExamEntity>> getOtherClientsWithAccounts(String id);
-
     @Insert
     long insert(ExamEntity examEntity) throws SQLiteConstraintException;
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<ExamEntity> examEntities);
 
     @Update
     void update(ExamEntity examEntity);

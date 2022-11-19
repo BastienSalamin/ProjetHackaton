@@ -1,5 +1,6 @@
 package com.example.exams.ui.exam;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -30,8 +31,6 @@ import java.util.List;
 public class ExamCreationActivity extends AppCompatActivity {
     private ConstraintLayout layout;
 
-    private ExamEntity exam;
-
     private List<SubjectEntity> subjects;
 
     private List<RoomEntity> rooms;
@@ -40,11 +39,11 @@ public class ExamCreationActivity extends AppCompatActivity {
 
     private RoomsListViewModel roomViewModel;
 
-    private ExamViewModel examViewModel;
-
     private String[] subjectList;
 
     private String[] roomList;
+
+    private String[] examInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,51 +58,131 @@ public class ExamCreationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
+        Intent intent = getIntent();
 
-        subjectViewModel.getAllSubjects().observe(this, subjectsToList -> {
-            if(subjectsToList != null) {
-                subjects = new ArrayList<>();
-                for(SubjectEntity subject : subjectsToList) {
-                    subjects.add(subject);
+        boolean checkData = intent.hasExtra("ExamInfo");
+
+        if(checkData){
+            examInfo = intent.getStringArrayExtra("ExamInfo");
+
+            subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
+
+            subjectViewModel.getAllSubjects().observe(this, subjectsToList -> {
+                if(subjectsToList != null) {
+                    subjects = new ArrayList<>();
+                    for(SubjectEntity subject : subjectsToList) {
+                        subjects.add(subject);
+                    }
+
+                    subjectList = new String[subjects.size()];
+                    int subjectId = Integer.parseInt(examInfo[5]);
+                    String insertedSubject = "";
+
+                    for(int i = 0 ; i < subjectList.length ; i++) {
+                        subjectList[i] = subjects.get(i).getSubjectName();
+                        if(subjects.get(i).getId_Subject() == subjectId) {
+                            insertedSubject = subjects.get(i).getSubjectName();
+                        }
+                    }
+
+                    Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
+                    ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjectList);
+
+                    int position = aa.getPosition(insertedSubject);
+
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    subjectSpinner.setAdapter(aa);
+                    subjectSpinner.setSelection(position);
                 }
+            });
 
-                subjectList = new String[subjects.size()];
+            EditText editText1 = findViewById(R.id.examDate);
+            editText1.setText(examInfo[1]);
 
-                for(int i = 0 ; i < subjectList.length ; i++) {
-                    subjectList[i] = subjects.get(i).getSubjectName();
+            EditText editText2 = findViewById(R.id.examDuration);
+            editText2.setText(examInfo[2]);
+
+            roomViewModel = ViewModelProviders.of(this).get(RoomsListViewModel.class);
+
+            roomViewModel.getAllRooms().observe(this, roomsToList -> {
+                if(roomsToList != null) {
+                    rooms = new ArrayList<>();
+                    for(RoomEntity room : roomsToList) {
+                        rooms.add(room);
+                    }
+
+                    roomList = new String[rooms.size()];
+                    int roomId = Integer.parseInt(examInfo[4]);
+                    String insertedRoom = "";
+
+                    for(int i = 0 ; i < roomList.length ; i++) {
+                        roomList[i] = rooms.get(i).getRoomName();
+                        if(rooms.get(i).getId_Room() == roomId) {
+                            insertedRoom = rooms.get(i).getRoomName();
+                        }
+                    }
+
+                    Spinner roomSpinner = findViewById(R.id.roomsSpinner);
+                    ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomList);
+
+                    int position = aa.getPosition(insertedRoom);
+
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    roomSpinner.setAdapter(aa);
+                    roomSpinner.setSelection(position);
                 }
+            });
 
-                Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
-                ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjectList);
-                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                subjectSpinner.setAdapter(aa);
-            }
-        });
+            createButtonModify();
+            createButtonDelete();
 
-        roomViewModel = ViewModelProviders.of(this).get(RoomsListViewModel.class);
+        } else {
+            subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
 
-        roomViewModel.getAllRooms().observe(this, roomsToList -> {
-            if(roomsToList != null) {
-                rooms = new ArrayList<>();
-                for(RoomEntity room : roomsToList) {
-                    rooms.add(room);
+            subjectViewModel.getAllSubjects().observe(this, subjectsToList -> {
+                if(subjectsToList != null) {
+                    subjects = new ArrayList<>();
+                    for(SubjectEntity subject : subjectsToList) {
+                        subjects.add(subject);
+                    }
+
+                    subjectList = new String[subjects.size()];
+
+                    for(int i = 0 ; i < subjectList.length ; i++) {
+                        subjectList[i] = subjects.get(i).getSubjectName();
+                    }
+
+                    Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
+                    ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjectList);
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    subjectSpinner.setAdapter(aa);
                 }
+            });
 
-                roomList = new String[rooms.size()];
+            roomViewModel = ViewModelProviders.of(this).get(RoomsListViewModel.class);
 
-                for(int i = 0 ; i < roomList.length ; i++) {
-                    roomList[i] = rooms.get(i).getRoomName();
+            roomViewModel.getAllRooms().observe(this, roomsToList -> {
+                if(roomsToList != null) {
+                    rooms = new ArrayList<>();
+                    for(RoomEntity room : roomsToList) {
+                        rooms.add(room);
+                    }
+
+                    roomList = new String[rooms.size()];
+
+                    for(int i = 0 ; i < roomList.length ; i++) {
+                        roomList[i] = rooms.get(i).getRoomName();
+                    }
+
+                    Spinner roomSpinner = findViewById(R.id.roomsSpinner);
+                    ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomList);
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    roomSpinner.setAdapter(aa);
                 }
+            });
 
-                Spinner roomSpinner = findViewById(R.id.roomsSpinner);
-                ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomList);
-                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                roomSpinner.setAdapter(aa);
-            }
-        });
-
-        createNextButton();
+            createNextButton();
+        }
     }
 
     public void createNextButton() {
@@ -145,8 +224,46 @@ public class ExamCreationActivity extends AppCompatActivity {
                     Intent intent = new Intent(ExamCreationActivity.this, StudentsSelectionActivity.class);
                     intent.putExtra("ExamsInfo", examData);
                     startActivity(intent);
-                    finish();
                 }
+            }
+        });
+        layout.addView(button);
+    }
+
+    public void createButtonModify() {
+        Button button = new Button(this);
+        button.setY(850f);
+        button.setX(25f);
+        button.setLayoutParams(new LinearLayout.LayoutParams(500, 150));
+        button.setText(R.string.button_next);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        layout.addView(button);
+    }
+
+    public void createButtonDelete() {
+        Button button = new Button(this);
+        button.setY(850f);
+        button.setX(550f);
+        button.setLayoutParams(new LinearLayout.LayoutParams(500, 150));
+        button.setText(R.string.button_student_delete);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(ExamCreationActivity.this).create();
+                alertDialog.setTitle("Supprimer cet examen ?");
+                alertDialog.setCancelable(false);
+
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui", (dialog, which) -> {
+
+                });
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Non", (dialog, which) -> alertDialog.dismiss());
+                alertDialog.show();
             }
         });
         layout.addView(button);

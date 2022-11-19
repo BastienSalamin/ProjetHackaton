@@ -24,15 +24,8 @@ public interface RoomDao {
     @Query("SELECT * FROM room")
     LiveData<List<RoomEntity>> getAll();
 
-    @Transaction
-    @Query("SELECT * FROM room WHERE id_Room != :id")
-    LiveData<List<RoomEntity>> getOtherClientsWithAccounts(String id);
-
     @Insert
     long insert(RoomEntity roomEntity) throws SQLiteConstraintException;
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<RoomEntity> roomEntities);
 
     @Update
     void update(RoomEntity roomEntity);
