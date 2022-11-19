@@ -10,10 +10,13 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.exams.BaseApp;
+import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.database.repository.ExamRepository;
 import com.example.exams.util.OnAsyncEventListener;
+
+import java.util.List;
 
 public class ExamViewModel extends AndroidViewModel {
     private Application application;
@@ -62,11 +65,15 @@ public class ExamViewModel extends AndroidViewModel {
         return observableExam;
     }
 
+    public LiveData<List<ExamsStudents>> getStudentsIdFromExam(String examId) {
+        return repository.getStudentsIdFromExam(examId, application);
+    }
+
     public void createExam(ExamWithStudents exam, OnAsyncEventListener callback) {
         repository.insert(exam, callback, application);
     }
 
-    public void updateExam(ExamEntity exam, OnAsyncEventListener callback) {
+    public void updateExam(ExamWithStudents exam, OnAsyncEventListener callback) {
         repository.update(exam, callback, application);
     }
 

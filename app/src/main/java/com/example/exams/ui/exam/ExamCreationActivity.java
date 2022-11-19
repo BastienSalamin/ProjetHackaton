@@ -244,6 +244,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                     Intent intent = new Intent(ExamCreationActivity.this, StudentsSelectionActivity.class);
                     intent.putExtra("ExamsInfo", examData);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

@@ -4,10 +4,13 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import com.example.exams.BaseApp;
+import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.entity.ExamEntity;
+import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.util.OnAsyncEventListener;
 
-public class UpdateExam extends AsyncTask<ExamEntity, Void, Void> {
+public class UpdateExam extends AsyncTask<ExamWithStudents, Void, Void> {
     private Application application;
     private OnAsyncEventListener callback;
     private Exception exception;
@@ -29,10 +32,16 @@ public class UpdateExam extends AsyncTask<ExamEntity, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(ExamEntity... params) {
+    protected Void doInBackground(ExamWithStudents... params) {
         try {
-            for(ExamEntity exam : params){
-                ((BaseApp)application).getDatabase().examDao().update(exam);
+            for(ExamWithStudents exam : params){
+                ((BaseApp) application).getDatabase().examDao().update(exam.exam);
+                long id = exam.exam.getIdExam();
+                ((BaseApp) application).getDatabase().examsStudentsDao().deleteExam(Long.toString(id));
+                for(StudentEntity student : exam.students) {
+                    ExamsStudents examsStudents = new ExamsStudents(id, student.getIdStudent());
+                    ((BaseApp) application).getDatabase().examsStudentsDao().insert(examsStudents);
+                }
             }
         }catch (Exception e){
             exception = e;

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.exams.BaseApp;
+import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.async.exam.CreateExam;
 import com.example.exams.database.async.exam.DeleteExam;
 import com.example.exams.database.async.exam.UpdateExam;
@@ -33,15 +34,19 @@ public class ExamRepository {
         return ((BaseApp) application).getDatabase().examDao().getAll();
     }
 
-    public LiveData<ExamEntity> getExam(final String examID, Application application){
+    public LiveData<ExamEntity> getExam(final String examID, Application application) {
         return ((BaseApp) application).getDatabase().examDao().getById(examID);
+    }
+
+    public LiveData<List<ExamsStudents>> getStudentsIdFromExam(final String examId, Application application) {
+        return ((BaseApp) application).getDatabase().examsStudentsDao().getStudentsIdFromExam(examId);
     }
 
     public void insert(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
         new CreateExam(application, callback).execute(exam);
     }
 
-    public void update(final ExamEntity exam, OnAsyncEventListener callback, Application application){
+    public void update(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
         new UpdateExam(application, callback).execute(exam);
     }
 

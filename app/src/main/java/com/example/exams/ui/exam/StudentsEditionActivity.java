@@ -9,18 +9,25 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.exams.R;
+import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
+import com.example.exams.ui.MainActivity;
+import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.student.StudentsListViewModel;
 
@@ -36,7 +43,11 @@ public class StudentsEditionActivity extends AppCompatActivity {
 
     private ExamEntity exam;
 
+    private ExamWithStudents examUpdated;
+
     private List<StudentEntity> students;
+
+    private List<ExamsStudents> examStudents = new ArrayList<ExamsStudents>();
 
     private ExamViewModel examViewModel;
 
@@ -68,6 +79,14 @@ public class StudentsEditionActivity extends AppCompatActivity {
             }
         });
 
+        examViewModel.getStudentsIdFromExam(examData[0]).observe(this, examStudentsToList -> {
+            if(examStudentsToList != null) {
+                for(ExamsStudents examStudent : examStudentsToList) {
+                    examStudents.add(examStudent);
+                }
+            }
+        });
+
         studentsViewModel = ViewModelProviders.of(this).get(StudentsListViewModel.class);
         studentsViewModel.getAllStudents().observe(this, studentsToList -> {
             if(studentsToList != null) {
@@ -95,11 +114,16 @@ public class StudentsEditionActivity extends AppCompatActivity {
                 for (int i = 0 ; i < size ; i++) {
                     createTable(table, i);
                 }
+
+                for(int i = 0 ; i < checkList.size() ; i++) {
+                    for(int j = 0 ; j < examStudents.size() ; j++) {
+                        if(examStudents.get(j).getIdStudent() == students.get(i).getIdStudent()) {
+                            checkList.get(i).setChecked(true);
+                        }
+                    }
+                }
             }
         });
-
-        // TODO: Ressortir la liste des étudiants checkés de la CrossRef
-
     }
 
     private void createTitle(LinearLayout layout) {
@@ -160,7 +184,49 @@ public class StudentsEditionActivity extends AppCompatActivity {
 
     public void editExam(View view) {
         // TODO: Update le nouvel examen et la CrossRef
-        System.out.println(exam.getIdExam() + " " + exam.getDate() + " " + exam.getDuration() + " " + exam.getIdSubject() + " " + exam.getIdRoom());
+        List<StudentEntity> checkedStudents = new ArrayList<>();
+        int count = 0;
+        for(int i = 0 ; i < checkList.size() ; i++) {
+            if(checkList.get(i).isChecked() == true) {
+                StudentEntity student = students.get(i);
+                checkedStudents.add(student);
+                count++;
+            }
+        }
+
+        if(count == 0){
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context, "Veuillez choisir au moins un étudiant", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        exam.setNumberStudents(count);
+
+        examUpdated = new ExamWithStudents();
+        examUpdated.exam = exam;
+        examUpdated.students = new ArrayList<StudentEntity>();
+
+        for (int i = 0 ; i < checkedStudents.size() ; i++) {
+            StudentEntity student = checkedStudents.get(i);
+            examUpdated.students.add(student);
+        }
+
+        examViewModel.updateExam(examUpdated, new OnAsyncEventListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "updateExam: success");
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG, "updateExam: failure", e);
+            }
+        });
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
