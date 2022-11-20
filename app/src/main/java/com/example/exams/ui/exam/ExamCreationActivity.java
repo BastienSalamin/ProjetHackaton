@@ -56,6 +56,10 @@ public class ExamCreationActivity extends AppCompatActivity {
 
     private String[] examInfo;
 
+    /**
+     * Method to create a new exam
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,6 +209,10 @@ public class ExamCreationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to go to the second part of the creation of the exam.
+     * Save the information to the second page
+     */
     public void createNextButton() {
         Button button = new Button(this);
         button.setY(850f);
@@ -251,6 +259,9 @@ public class ExamCreationActivity extends AppCompatActivity {
         layout.addView(button);
     }
 
+    /**
+     * Everything about the button to modify an exam
+     */
     public void createButtonModify() {
         Button button = new Button(this);
         button.setY(850f);
@@ -297,6 +308,9 @@ public class ExamCreationActivity extends AppCompatActivity {
         layout.addView(button);
     }
 
+    /**
+     * Everything about the button to delete an exam
+     */
     public void createButtonDelete() {
         Button button = new Button(this);
         button.setY(850f);

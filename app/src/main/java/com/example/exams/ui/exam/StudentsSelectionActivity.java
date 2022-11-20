@@ -50,6 +50,10 @@ public class StudentsSelectionActivity extends AppCompatActivity {
 
     private StudentsListViewModel viewModel;
 
+    /**
+     * Sort the students in good order
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +104,10 @@ public class StudentsSelectionActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Create the layout for the UI
+     * @param layout
+     */
     private void createTitle(LinearLayout layout) {
         LinearLayout row = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 6);
@@ -123,6 +131,11 @@ public class StudentsSelectionActivity extends AppCompatActivity {
         layout.addView(row);
     }
 
+    /**
+     * Create the layout for the table
+     * @param layout
+     * @param pos
+     */
     private void createTable(LinearLayout layout, int pos) {
         StudentEntity student = students.get(pos);
 
@@ -156,6 +169,10 @@ public class StudentsSelectionActivity extends AppCompatActivity {
         layout.addView(row);
     }
 
+    /**
+     * Method to select the different students attending the exam and the finalization of the creation of the exam.
+     * @param view
+     */
     public void createExam(View view) {
         List<StudentEntity> checkedStudents = new ArrayList<>();
         int count = 0;

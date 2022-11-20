@@ -53,6 +53,10 @@ public class StudentsEditionActivity extends AppCompatActivity {
 
     private StudentsListViewModel studentsViewModel;
 
+    /**
+     * Sort the exams in good order
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +130,10 @@ public class StudentsEditionActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Create the layout for the UI
+     * @param layout
+     */
     private void createTitle(LinearLayout layout) {
         LinearLayout row = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 6);
@@ -149,6 +157,11 @@ public class StudentsEditionActivity extends AppCompatActivity {
         layout.addView(row);
     }
 
+    /**
+     * Create the layout for the table
+     * @param layout
+     * @param pos
+     */
     private void createTable(LinearLayout layout, int pos) {
         StudentEntity student = students.get(pos);
 
@@ -182,8 +195,12 @@ public class StudentsEditionActivity extends AppCompatActivity {
         layout.addView(row);
     }
 
+    /**
+     * Update The new exam and the cross-Reference
+     * @param view
+     */
     public void editExam(View view) {
-        // TODO: Update le nouvel examen et la CrossRef
+
         List<StudentEntity> checkedStudents = new ArrayList<>();
         int count = 0;
         for(int i = 0 ; i < checkList.size() ; i++) {

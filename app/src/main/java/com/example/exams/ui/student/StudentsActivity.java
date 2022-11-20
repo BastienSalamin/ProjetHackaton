@@ -28,6 +28,10 @@ public class StudentsActivity extends MainActivity {
 
     private StudentsListViewModel viewModel;
 
+    /**
+     * Sort the students in good order
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +76,10 @@ public class StudentsActivity extends MainActivity {
         });
     }
 
+    /**
+     * Create the layout for the UI
+     * @param layout
+     */
     private void createTitle(LinearLayout layout) {
         LinearLayout row = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 6);
@@ -95,6 +103,11 @@ public class StudentsActivity extends MainActivity {
         layout.addView(row);
     }
 
+    /**
+     * Create the layout for the table
+     * @param layout
+     * @param pos
+     */
     private void createTable(LinearLayout layout, int pos) {
         StudentEntity student = students.get(pos);
 

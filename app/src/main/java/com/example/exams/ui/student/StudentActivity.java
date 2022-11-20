@@ -32,6 +32,10 @@ public class StudentActivity extends AppCompatActivity {
 
     private StudentViewModel viewModel;
 
+    /**
+     * Method to create a new student
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +86,9 @@ public class StudentActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Everything about the button to add a new student
+     */
     public void createButtonAdd() {
         Button button = new Button(this);
         button.setY(750f);
@@ -127,6 +134,9 @@ public class StudentActivity extends AppCompatActivity {
         layout.addView(button);
     }
 
+    /**
+     * Everything about the button to modify a student
+     */
     public void createButtonModify() {
         Button button = new Button(this);
         button.setY(750f);
@@ -175,6 +185,9 @@ public class StudentActivity extends AppCompatActivity {
         layout.addView(button);
     }
 
+    /**
+     * Everything about the button to delete a student
+     */
     public void createButtonDelete() {
         Button button = new Button(this);
         button.setY(750f);
