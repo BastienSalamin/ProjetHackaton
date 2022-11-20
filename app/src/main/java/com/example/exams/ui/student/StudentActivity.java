@@ -33,7 +33,7 @@ public class StudentActivity extends AppCompatActivity {
     private StudentViewModel viewModel;
 
     /**
-     * Method to create a new student
+     * Method to create the layout in order to be able to create or edit a student
      * @param savedInstanceState
      */
     @Override
@@ -87,7 +87,7 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     /**
-     * Everything about the button to add a new student
+     * Creation of the button Add, which add to the database a new student with the elements given by the user
      */
     public void createButtonAdd() {
         Button button = new Button(this);
@@ -135,7 +135,7 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     /**
-     * Everything about the button to modify a student
+     * Creation of the button Modify, which edit inside the database the selected student with the elements given by the user
      */
     public void createButtonModify() {
         Button button = new Button(this);
@@ -186,7 +186,7 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     /**
-     * Everything about the button to delete a student
+     * Creation of the button Delete, which removes from the database the selected student
      */
     public void createButtonDelete() {
         Button button = new Button(this);

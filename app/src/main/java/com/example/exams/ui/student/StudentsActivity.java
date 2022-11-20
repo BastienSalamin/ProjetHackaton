@@ -29,7 +29,7 @@ public class StudentsActivity extends MainActivity {
     private StudentsListViewModel viewModel;
 
     /**
-     * Sort the students in good order
+     * Display the students retrieved from the database and sort the data in order
      * @param savedInstanceState
      */
     @Override
@@ -77,7 +77,7 @@ public class StudentsActivity extends MainActivity {
     }
 
     /**
-     * Create the layout for the UI
+     * Create the title layout for the user interface
      * @param layout
      */
     private void createTitle(LinearLayout layout) {
@@ -104,7 +104,7 @@ public class StudentsActivity extends MainActivity {
     }
 
     /**
-     * Create the layout for the table
+     * Create the display of a student and add it inside the layout
      * @param layout
      * @param pos
      */
@@ -147,6 +147,10 @@ public class StudentsActivity extends MainActivity {
         layout.addView(row);
     }
 
+    /**
+     * Method to move in the StudentActivity window, which display the information of the selected student
+     * @param view
+     */
     public void browseStudent(View view) {
         Intent intent = new Intent(this, StudentActivity.class);
         startActivity(intent);

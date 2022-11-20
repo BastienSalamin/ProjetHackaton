@@ -54,7 +54,7 @@ public class StudentsEditionActivity extends AppCompatActivity {
     private StudentsListViewModel studentsViewModel;
 
     /**
-     * Sort the exams in good order
+     * Display all the students, with a checked box for the students the user added for his exam
      * @param savedInstanceState
      */
     @Override
@@ -131,7 +131,7 @@ public class StudentsEditionActivity extends AppCompatActivity {
     }
 
     /**
-     * Create the layout for the UI
+     * Create the title layout for the user interface
      * @param layout
      */
     private void createTitle(LinearLayout layout) {
@@ -158,7 +158,7 @@ public class StudentsEditionActivity extends AppCompatActivity {
     }
 
     /**
-     * Create the layout for the table
+     * Create the display of a student and add it inside the layout
      * @param layout
      * @param pos
      */
@@ -196,11 +196,10 @@ public class StudentsEditionActivity extends AppCompatActivity {
     }
 
     /**
-     * Update The new exam and the cross-Reference
+     * Method to edit the exam with the information retrieved from the previous page and the currently checked students
      * @param view
      */
     public void editExam(View view) {
-
         List<StudentEntity> checkedStudents = new ArrayList<>();
         int count = 0;
         for(int i = 0 ; i < checkList.size() ; i++) {

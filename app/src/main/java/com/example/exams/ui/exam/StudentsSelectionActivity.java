@@ -51,7 +51,7 @@ public class StudentsSelectionActivity extends AppCompatActivity {
     private StudentsListViewModel viewModel;
 
     /**
-     * Sort the students in good order
+     * Display all the students that the user want to add for his created exam
      * @param savedInstanceState
      */
     @Override
@@ -105,7 +105,7 @@ public class StudentsSelectionActivity extends AppCompatActivity {
     }
 
     /**
-     * Create the layout for the UI
+     * Create the title layout for the user interface
      * @param layout
      */
     private void createTitle(LinearLayout layout) {
@@ -132,7 +132,7 @@ public class StudentsSelectionActivity extends AppCompatActivity {
     }
 
     /**
-     * Create the layout for the table
+     * Create the display of a student and add it inside the layout
      * @param layout
      * @param pos
      */
@@ -170,7 +170,7 @@ public class StudentsSelectionActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to select the different students attending the exam and the finalization of the creation of the exam.
+     * Method to create the exam inside the database with the information retrieved from the previous page and the currently checked students
      * @param view
      */
     public void createExam(View view) {

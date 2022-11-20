@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     private List<String> examData = new ArrayList<>();
 
+    /**
+     * Display the exams retrieved from the database
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Display an exam retrieved from the database, depending on his position. It can be selected
+     * @param listView
+     * @param pos
+     */
     private void createExamsList(ListView listView, int pos) {
         ExamEntity exam = exams.get(pos);
 
@@ -100,11 +109,19 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
     }
 
+    /**
+     * Method to move in the StudentsActivity window, which display the list of all the students inside the database
+     * @param view
+     */
     public void browseStudents(View view) {
         Intent intent = new Intent(this, StudentsActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method to move in the ExamCreationActivity window, which allow the user to create a new exam
+     * @param view
+     */
     public void createExam(View view) {
         Intent intent = new Intent(this, ExamCreationActivity.class);
         startActivity(intent);

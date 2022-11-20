@@ -57,7 +57,7 @@ public class ExamCreationActivity extends AppCompatActivity {
     private String[] examInfo;
 
     /**
-     * Method to create a new exam
+     * Method to create the layout in order to be able to create or edit an exam. It retrieves the rooms and subjects already inserted inside the database
      * @param savedInstanceState
      */
     @Override
@@ -210,8 +210,8 @@ public class ExamCreationActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to go to the second part of the creation of the exam.
-     * Save the information to the second page
+     * Method to go to the second part of the creation of an exam. It transfers the necessary informations to the next page
+     *
      */
     public void createNextButton() {
         Button button = new Button(this);
@@ -260,7 +260,7 @@ public class ExamCreationActivity extends AppCompatActivity {
     }
 
     /**
-     * Everything about the button to modify an exam
+     * Creation of the button Modify, which will allow a user to edit the selected exam informations. These informations will be transfered over the next page
      */
     public void createButtonModify() {
         Button button = new Button(this);
@@ -309,7 +309,7 @@ public class ExamCreationActivity extends AppCompatActivity {
     }
 
     /**
-     * Everything about the button to delete an exam
+     * Creation of the button Delete, which removes from the database the selected exam
      */
     public void createButtonDelete() {
         Button button = new Button(this);
