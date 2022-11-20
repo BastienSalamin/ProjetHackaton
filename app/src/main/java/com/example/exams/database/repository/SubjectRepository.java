@@ -33,10 +33,6 @@ public class SubjectRepository {
         return ((BaseApp) application).getDatabase().subjectDao().getAll();
     }
 
-    public LiveData<SubjectEntity> getSubject(final String subID, Application application){
-        return ((BaseApp) application).getDatabase().subjectDao().getById(subID);
-    }
-
     public void insert(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
         new CreateSubject(application, callback).execute(sub);
     }

@@ -23,7 +23,6 @@ import com.example.exams.ui.student.StudentsActivity;
 import com.example.exams.viewmodel.exam.ExamsListViewModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {

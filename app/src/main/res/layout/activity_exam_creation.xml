@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:hint="@string/exam_hint_duration"
-        android:inputType="text"
+        android:inputType="date"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/labelDuration"
         app:layout_constraintEnd_toEndOf="parent"

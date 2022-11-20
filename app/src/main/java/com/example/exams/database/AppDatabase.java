@@ -1,6 +1,5 @@
 package com.example.exams.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.room.Database;
@@ -12,13 +11,11 @@ import android.util.Log;
 
 import java.util.concurrent.Executors;
 
-// import com.example.exams.database.dao.ExamDao;
 import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.dao.ExamDao;
 import com.example.exams.database.dao.ExamsStudentsDao;
 import com.example.exams.database.dao.RoomDao;
 import com.example.exams.database.dao.StudentDao;
-// import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.dao.SubjectDao;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.RoomEntity;
@@ -88,9 +85,5 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private void setDatabaseCreated() {
         mIsDatabaseCreated.postValue(true);
-    }
-
-    public LiveData<Boolean> getDatabaseCreated() {
-        return mIsDatabaseCreated;
     }
 }

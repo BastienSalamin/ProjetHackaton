@@ -33,10 +33,6 @@ public class RoomRepository {
         return ((BaseApp) application).getDatabase().roomDao().getAll();
     }
 
-    public LiveData<RoomEntity> getRoom(final String roomID, Application application){
-        return ((BaseApp) application).getDatabase().roomDao().getById(roomID);
-    }
-
     public void insert(final RoomEntity room, OnAsyncEventListener callback, Application application){
         new CreateRoom(application, callback).execute(room);
     }

@@ -1,7 +1,7 @@
-<resources>
+﻿<resources>
     <string name="app_name">Exams</string>
     <string name="button_settings">À propos</string>
-    <string name="about_text">Bonjour !\n\nCette application Android a été créée dans le cadre du module de cours \"644-1 Développement Mobile &amp; Cloud\", par Bastien Salamin et Alexandre Martroye de Joly, étudiants de la classe 605_3.</string>
+    <string name="about_text">Bonjour !\n\nCette application Android a été créée dans le cadre du module de cours \"644-1 Développement Mobile &amp; Cloud\", par Bastien Salamin et Alexandre Martroye de Joly, étudiants de la classe 605_3.\n\nVous pouvez consulter la page GitHub du projet sur le lien suivant :\n<a href="https://github.com/marcidus/Exams">https://github.com/marcidus/Exams</a></string>
     <string name="app_resume">Vos Examens</string>
     <string name="button_next">Suivant</string>
     <string name="button_create">Créer un examen</string>

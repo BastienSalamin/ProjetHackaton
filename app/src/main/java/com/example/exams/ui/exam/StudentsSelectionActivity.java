@@ -26,8 +26,6 @@ import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.ui.MainActivity;
-import com.example.exams.ui.student.StudentActivity;
-import com.example.exams.ui.student.StudentsActivity;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.student.StudentsListViewModel;

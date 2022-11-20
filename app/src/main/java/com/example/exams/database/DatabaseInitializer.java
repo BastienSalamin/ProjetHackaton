@@ -3,7 +3,6 @@ package com.example.exams.database;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.database.entity.SubjectEntity;

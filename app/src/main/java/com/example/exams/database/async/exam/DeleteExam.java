@@ -1,12 +1,10 @@
 package com.example.exams.database.async.exam;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.AsyncTask;
 
 import com.example.exams.BaseApp;
 import com.example.exams.database.entity.ExamEntity;
-import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.util.OnAsyncEventListener;
 
 public class DeleteExam extends AsyncTask<ExamEntity, Void, Void> {
