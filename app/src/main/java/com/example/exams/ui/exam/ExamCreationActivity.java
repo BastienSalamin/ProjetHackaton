@@ -234,7 +234,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                 int roomId = room.getId_Room();
                 String roomIdString = Integer.toString(roomId);
 
-                if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("") || !examDuration.matches("\\d+")) {
+                if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("")) {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
                     toast.show();
@@ -280,7 +280,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                 int roomId = room.getId_Room();
                 String roomIdString = Integer.toString(roomId);
 
-                if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("") || !examDuration.matches("\\d+")) {
+                if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("")) {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
                     toast.show();
