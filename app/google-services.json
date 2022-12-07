@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "162686367507",
+    "project_id": "exams-cloud",
+    "storage_bucket": "exams-cloud.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162686367507:android:f5aeb65751026d9572cce6",
+        "android_client_info": {
+          "package_name": "com.example.exams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162686367507-uomcj5cgtdddkd53h4hep87935ec86pq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHDBCgl9bEl76dI6Y6JtFTyZpJPQi3J0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162686367507-uomcj5cgtdddkd53h4hep87935ec86pq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
