@@ -76,15 +76,14 @@ public class StudentsEditionActivity extends AppCompatActivity {
             if(examEntity != null) {
                 exam = examEntity;
                 exam.setSubject(examData[1]);
-                exam.setDate(examData[3]);
-                exam.setDuration(Integer.parseInt(examData[4]));
-                exam.setRoom(examData[5]);
+                exam.setDate(examData[2]);
+                exam.setDuration(Integer.parseInt(examData[3]));
+                exam.setRoom(examData[4]);
             }
         });
 
         examViewModel.getStudentsIdFromExam(examData[0]).observe(this, examStudentsToList -> {
             if(examStudentsToList != null) {
-                //TODO: modifier type ExamsStudents en ExamWithStudents
                 for(ExamWithStudents examStudent : examStudentsToList) {
                     examStudents.add(examStudent);
                 }
