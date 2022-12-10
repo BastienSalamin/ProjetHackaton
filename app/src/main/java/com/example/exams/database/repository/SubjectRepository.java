@@ -10,6 +10,8 @@ import com.example.exams.database.async.subject.DeleteSubject;
 import com.example.exams.database.async.subject.UpdateSubject;
 import com.example.exams.database.entity.SubjectEntity;
 import com.example.exams.util.OnAsyncEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class SubjectRepository {
     }
 
     public LiveData<List<SubjectEntity>> getAllSubjects(Application application) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("subjects");
+        
         return ((BaseApp) application).getDatabase().subjectDao().getAll();
     }
 

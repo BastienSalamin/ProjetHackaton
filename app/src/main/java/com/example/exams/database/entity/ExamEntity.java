@@ -1,13 +1,11 @@
 package com.example.exams.database.entity;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Ignore;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import com.google.firebase.database.Exclude;
 
-@Entity(tableName = "Exam",
+import java.util.HashMap;
+import java.util.Map;
+
+/*@Entity(tableName = "Exam",
     foreignKeys ={
     @ForeignKey(
             entity = RoomEntity.class,
@@ -26,10 +24,10 @@ import androidx.room.PrimaryKey;
                 value = {"idRoom"}
         ),
         @Index( value = {"idSubject"})
-})
+})*/
 public class ExamEntity {
 
-    @Ignore
+    // @Ignore
     public ExamEntity(){
 
     }
@@ -42,24 +40,25 @@ public class ExamEntity {
         this.idSubject = idSubject;
     }
 
-    @PrimaryKey(autoGenerate = true)
+    // @PrimaryKey(autoGenerate = true)
     private int idExam;
 
-    @ColumnInfo(name = "Date")
+    // @ColumnInfo(name = "Date")
     private String date;
 
-    @ColumnInfo(name = "Duration")
+    // @ColumnInfo(name = "Duration")
     private int duration;
 
-    @ColumnInfo(name = "Nbre_of_Students")
+    // @ColumnInfo(name = "Nbre_of_Students")
     private int numberStudents;
 
-    @ColumnInfo(name = "idSubject")
+    // @ColumnInfo(name = "idSubject")
     private int idSubject;
 
-    @ColumnInfo(name = "idRoom")
+    // @ColumnInfo(name = "idRoom")
     private int idRoom;
 
+    @Exclude
     public int getIdExam() {
         return idExam;
     }
@@ -92,6 +91,7 @@ public class ExamEntity {
         this.numberStudents = numberStudents;
     }
 
+    @Exclude
     public int getIdSubject() {
         return idSubject;
     }
@@ -100,12 +100,24 @@ public class ExamEntity {
         this.idSubject = idSubject;
     }
 
+    @Exclude
     public int getIdRoom() {
         return idRoom;
     }
 
     public void setIdRoom(int idRoom) {
         this.idRoom = idRoom;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("date", date);
+        result.put("duration", duration);
+        result.put("numberStudents", numberStudents);
+        // result.put("subjectName", idSubject);
+        // result.put("roomName", idRoom);
+        return result;
     }
 }
 

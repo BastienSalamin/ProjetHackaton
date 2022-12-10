@@ -47,6 +47,7 @@ public class StudentsEditionActivity extends AppCompatActivity {
 
     private List<StudentEntity> students;
 
+    //TODO: modifier type ExamsStudents en ExamWithStudents
     private List<ExamsStudents> examStudents = new ArrayList<ExamsStudents>();
 
     private ExamViewModel examViewModel;
@@ -85,6 +86,7 @@ public class StudentsEditionActivity extends AppCompatActivity {
 
         examViewModel.getStudentsIdFromExam(examData[0]).observe(this, examStudentsToList -> {
             if(examStudentsToList != null) {
+                //TODO: modifier type ExamsStudents en ExamWithStudents
                 for(ExamsStudents examStudent : examStudentsToList) {
                     examStudents.add(examStudent);
                 }

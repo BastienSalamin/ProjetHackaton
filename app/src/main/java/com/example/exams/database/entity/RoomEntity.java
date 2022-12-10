@@ -1,19 +1,19 @@
 package com.example.exams.database.entity;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import com.google.firebase.database.Exclude;
 
-@Entity(tableName = "Room")
+import java.util.HashMap;
+import java.util.Map;
+
+// @Entity(tableName = "Room")
 public class RoomEntity {
-    @PrimaryKey(autoGenerate = true)
+    // @PrimaryKey(autoGenerate = true)
     private int id_Room;
 
-    @ColumnInfo(name = "room_name")
+    // @ColumnInfo(name = "room_name")
     private String roomName;
 
-    @Ignore
+    // @Ignore
     public RoomEntity() {
 
     }
@@ -30,6 +30,7 @@ public class RoomEntity {
         this.roomName = roomName;
     }
 
+    @Exclude
     public int getId_Room() {
         return id_Room;
     }
@@ -38,4 +39,10 @@ public class RoomEntity {
         this.id_Room = id_Room;
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("roomName", roomName);
+        return result;
+    }
 }
