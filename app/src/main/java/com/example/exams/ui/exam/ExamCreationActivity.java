@@ -108,15 +108,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                     }
 
                     subjectList = new String[subjects.size()];
-                    String subjectId = examInfo[5];
-                    String insertedSubject = "";
-
-                    for(int i = 0 ; i < subjectList.length ; i++) {
-                        subjectList[i] = subjects.get(i).getSubjectName();
-                        if(subjects.get(i).getId_Subject() == subjectId) {
-                            insertedSubject = subjects.get(i).getSubjectName();
-                        }
-                    }
+                    String insertedSubject = examInfo[5];
 
                     Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
                     ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjectList);
@@ -145,15 +137,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                     }
 
                     roomList = new String[rooms.size()];
-                    String roomId = examInfo[4];
-                    String insertedRoom = "";
-
-                    for(int i = 0 ; i < roomList.length ; i++) {
-                        roomList[i] = rooms.get(i).getRoomName();
-                        if(rooms.get(i).getId_Room() == roomId) {
-                            insertedRoom = rooms.get(i).getRoomName();
-                        }
-                    }
+                    String insertedRoom = examInfo[4];
 
                     Spinner roomSpinner = findViewById(R.id.roomsSpinner);
                     ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomList);

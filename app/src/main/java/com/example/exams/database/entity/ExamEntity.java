@@ -32,12 +32,12 @@ public class ExamEntity {
 
     }
 
-    public ExamEntity(String date, int duration, int numberStudents, int idRoom, int idSubject){
+    public ExamEntity(String date, int duration, int numberStudents, String room, String subject){
         this.date = date;
         this.duration = duration;
         this.numberStudents = numberStudents;
-        this.idRoom = idRoom;
-        this.idSubject = idSubject;
+        this.subjectName = subject;
+        this.roomName = room;
     }
 
     // @PrimaryKey(autoGenerate = true)
@@ -53,10 +53,10 @@ public class ExamEntity {
     private int numberStudents;
 
     // @ColumnInfo(name = "idSubject")
-    private int idSubject;
+    private String subjectName;
 
     // @ColumnInfo(name = "idRoom")
-    private int idRoom;
+    private String roomName;
 
     @Exclude
     public String getIdExam() {
@@ -92,21 +92,21 @@ public class ExamEntity {
     }
 
     @Exclude
-    public int getIdSubject() {
-        return idSubject;
+    public String getSubject() {
+        return subjectName;
     }
 
-    public void setIdSubject(int idSubject) {
-        this.idSubject = idSubject;
+    public void setSubject(String subject) {
+        this.subjectName = subject;
     }
 
     @Exclude
-    public int getIdRoom() {
-        return idRoom;
+    public String getRoom() {
+        return roomName;
     }
 
-    public void setIdRoom(int idRoom) {
-        this.idRoom = idRoom;
+    public void setRoom(String room) {
+        this.roomName = room;
     }
 
     @Exclude
@@ -115,8 +115,8 @@ public class ExamEntity {
         result.put("date", date);
         result.put("duration", duration);
         result.put("numberStudents", numberStudents);
-        // result.put("subjectName", idSubject);
-        // result.put("roomName", idRoom);
+        result.put("subjectName", subjectName);
+        result.put("roomName", roomName);
         return result;
     }
 }

@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.exams.R;
-import com.example.exams.database.CrossRef.ExamsStudents;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.database.pojo.ExamWithStudents;
@@ -76,10 +75,10 @@ public class StudentsEditionActivity extends AppCompatActivity {
         examViewModel.getExam().observe(this, examEntity -> {
             if(examEntity != null) {
                 exam = examEntity;
-                exam.setIdSubject(Integer.parseInt(examData[1]));
+                exam.setSubject(examData[1]);
                 exam.setDate(examData[3]);
                 exam.setDuration(Integer.parseInt(examData[4]));
-                exam.setIdRoom(Integer.parseInt(examData[5]));
+                exam.setRoom(examData[5]);
             }
         });
 
