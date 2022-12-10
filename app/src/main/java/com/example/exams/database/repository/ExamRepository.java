@@ -10,6 +10,9 @@ import com.example.exams.database.async.exam.CreateExam;
 import com.example.exams.database.async.exam.DeleteExam;
 import com.example.exams.database.async.exam.UpdateExam;
 import com.example.exams.database.entity.ExamEntity;
+import com.example.exams.database.firebase.ExamLiveData;
+import com.example.exams.database.firebase.ExamsListLiveData;
+import com.example.exams.database.firebase.ExamsStudentsLiveData;
 import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.util.OnAsyncEventListener;
 import com.google.firebase.database.DatabaseReference;
@@ -33,15 +36,18 @@ public class ExamRepository {
         return instance;
     }
     public LiveData<List<ExamEntity>> getAllExams(Application application){
-        return ((BaseApp) application).getDatabase().examDao().getAll();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("exams");
+        return new ExamsListLiveData(reference);
     }
 
     public LiveData<ExamEntity> getExam(final String examID, Application application) {
-        return ((BaseApp) application).getDatabase().examDao().getById(examID);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("exams").child(examID);
+        return new ExamLiveData(reference);
     }
 
-    public LiveData<List<ExamsStudents>> getStudentsIdFromExam(final String examId, Application application) {
-        return ((BaseApp) application).getDatabase().examsStudentsDao().getStudentsIdFromExam(examId);
+    public LiveData<List<ExamWithStudents>> getStudentsIdFromExam(final String examId, Application application) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("examsStudents").child(examId);
+        return new ExamsStudentsLiveData(reference);
     }
 
     public void insert(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){

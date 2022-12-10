@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.example.exams.database.entity.RoomEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,13 +14,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomLiveData extends LiveData<List<RoomEntity>> {
-    private static final String TAG = "RoomLiveData";
+public class ExamsStudentsLiveData extends LiveData<List<ExamWithStudents>> {
+    private static final String TAG = "ExamsStudentsLiveData";
 
     private final DatabaseReference reference;
-    private final RoomLiveData.MyValueEventListener listener = new RoomLiveData.MyValueEventListener();
+    private final ExamsStudentsLiveData.MyValueEventListener listener = new ExamsStudentsLiveData.MyValueEventListener();
 
-    public RoomLiveData(DatabaseReference ref) {
+    public ExamsStudentsLiveData(DatabaseReference ref) {
         reference = ref;
     }
 
@@ -38,7 +38,7 @@ public class RoomLiveData extends LiveData<List<RoomEntity>> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            setValue(toRoomList(dataSnapshot));
+            setValue(toExamsStudentsList(dataSnapshot));
         }
 
         @Override
@@ -47,13 +47,13 @@ public class RoomLiveData extends LiveData<List<RoomEntity>> {
         }
     }
 
-    private List<RoomEntity> toRoomList(DataSnapshot snapshot) {
-        List<RoomEntity> roomEntityList = new ArrayList<>();
+    private List<ExamWithStudents> toExamsStudentsList(DataSnapshot snapshot) {
+        List<ExamWithStudents> examWithStudentsList = new ArrayList<>();
         for(DataSnapshot childSnapshot : snapshot.getChildren()) {
-            RoomEntity room = childSnapshot.getValue(RoomEntity.class);
-            room.setId_Room(childSnapshot.getKey());
-            roomEntityList.add(room);
+            ExamWithStudents exam = childSnapshot.getValue(ExamWithStudents.class);
+            exam.exam.setIdExam(childSnapshot.getKey());
+            examWithStudentsList.add(exam);
         }
-        return roomEntityList;
+        return examWithStudentsList;
     }
 }
