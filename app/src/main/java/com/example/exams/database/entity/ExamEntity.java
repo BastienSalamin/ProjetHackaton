@@ -41,7 +41,7 @@ public class ExamEntity {
     }
 
     // @PrimaryKey(autoGenerate = true)
-    private int idExam;
+    private String idExam;
 
     // @ColumnInfo(name = "Date")
     private String date;
@@ -59,11 +59,11 @@ public class ExamEntity {
     private int idRoom;
 
     @Exclude
-    public int getIdExam() {
+    public String getIdExam() {
         return idExam;
     }
 
-    public void setIdExam(int id_Exam) {
+    public void setIdExam(String id_Exam) {
         this.idExam = id_Exam;
     }
 

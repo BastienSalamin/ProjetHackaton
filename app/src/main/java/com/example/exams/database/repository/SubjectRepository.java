@@ -56,7 +56,7 @@ public class SubjectRepository {
     }
 
     public void delete(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
-        FirebaseDatabase.getInstance().getReference("strings").child(sub.getId_Subject()).removeValue((databaseError, databaseReference) -> {
+        FirebaseDatabase.getInstance().getReference("subjects").child(sub.getId_Subject()).removeValue((databaseError, databaseReference) -> {
             if(databaseError != null) {
                 callback.onFailure(databaseError.toException());
             } else {

@@ -12,6 +12,8 @@ import com.example.exams.database.async.exam.UpdateExam;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.util.OnAsyncEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -43,14 +45,63 @@ public class ExamRepository {
     }
 
     public void insert(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
-        new CreateExam(application, callback).execute(exam);
+        // Insertion dans la table Exams
+        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("exams");
+        String clef = dbReference.push().getKey();
+        FirebaseDatabase.getInstance().getReference("exams").child(clef).setValue(exam.exam, (databaseErr, databaseRef) -> {
+            if(databaseErr != null) {
+                callback.onFailure(databaseErr.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
+        // Insertion dans la table ExamsStudents
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("examsStudents");
+        String key = reference.push().getKey();
+        FirebaseDatabase.getInstance().getReference("examsStudents").child(key).setValue(exam, (databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
     public void update(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
-        new UpdateExam(application, callback).execute(exam);
+        // Modification dans la table Exams
+        FirebaseDatabase.getInstance().getReference("exams").child(exam.exam.getIdExam()).updateChildren(exam.exam.toMap(), (databaseErr, databaseRef) -> {
+            if(databaseErr != null) {
+                callback.onFailure(databaseErr.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
+        // Modification dans la table ExamsStudents
+        FirebaseDatabase.getInstance().getReference("examsStudents").child(exam.exam.getIdExam()).updateChildren(exam.toMap(), (databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
-    public void delete(final ExamEntity exam, OnAsyncEventListener callback, Application application){
-        new DeleteExam(application, callback).execute(exam);
+    public void delete(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
+        // Suppression dans la table Exams
+        FirebaseDatabase.getInstance().getReference("exams").child(exam.exam.getIdExam()).removeValue((databaseErr, databaseRef) -> {
+            if(databaseErr != null) {
+                callback.onFailure(databaseErr.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
+        // Suppression dans la table ExamsStudents
+        FirebaseDatabase.getInstance().getReference("examsStudents").child(exam.exam.getIdExam()).removeValue((databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 }
