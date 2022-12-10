@@ -65,7 +65,7 @@ public class StudentEntity {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("classname", className);
+        result.put("className", className);
         result.put("surname", surname);
         result.put("name", name);
         return result;
