@@ -8,7 +8,7 @@ import java.util.Map;
 // @Entity(tableName = "Room")
 public class RoomEntity {
     // @PrimaryKey(autoGenerate = true)
-    private int id_Room;
+    private String id_Room;
 
     // @ColumnInfo(name = "room_name")
     private String roomName;
@@ -31,11 +31,11 @@ public class RoomEntity {
     }
 
     @Exclude
-    public int getId_Room() {
+    public String getId_Room() {
         return id_Room;
     }
 
-    public void setId_Room(int id_Room) {
+    public void setId_Room(String id_Room) {
         this.id_Room = id_Room;
     }
 

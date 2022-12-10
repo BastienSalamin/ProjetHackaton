@@ -9,7 +9,13 @@ import com.example.exams.database.async.room.CreateRoom;
 import com.example.exams.database.async.room.DeleteRoom;
 import com.example.exams.database.async.room.UpdateRoom;
 import com.example.exams.database.entity.RoomEntity;
+import com.example.exams.database.firebase.RoomLiveData;
+import com.example.exams.database.firebase.SubjectLiveData;
 import com.example.exams.util.OnAsyncEventListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -30,18 +36,59 @@ public class RoomRepository {
     }
 
     public LiveData<List<RoomEntity>> getAllRooms(Application application){
-        return ((BaseApp) application).getDatabase().roomDao().getAll();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rooms");
+        return new RoomLiveData(reference);
     }
 
-    public void insert(final RoomEntity room, OnAsyncEventListener callback, Application application){
-        new CreateRoom(application, callback).execute(room);
+    public void insert(final RoomEntity room, final OnAsyncEventListener callback){
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("rooms");
+
+        reference.push().setValue(room, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    callback.onFailure(databaseError.toException());
+                } else {
+                    callback.onSuccess();
+                }
+            }
+        });
+
+       /* DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rooms");
+        String key = reference.push().getKey();
+        FirebaseDatabase.getInstance().getReference("rooms").child(key).setValue(room, (databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });*/
     }
 
-    public void update(final RoomEntity room, OnAsyncEventListener callback, Application application){
-        new UpdateRoom(application, callback).execute(room);
+    public void update(final RoomEntity room, OnAsyncEventListener callback) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("rooms");
+        reference.child(room.getId_Room()).updateChildren(room.toMap(),(databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
     public void delete(final RoomEntity room, OnAsyncEventListener callback, Application application){
-        new DeleteRoom(application, callback).execute(room);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("rooms");
+        reference.child(room.getId_Room()).removeValue((databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 }
