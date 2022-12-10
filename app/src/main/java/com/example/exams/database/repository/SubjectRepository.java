@@ -4,11 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.exams.BaseApp;
-import com.example.exams.database.async.subject.CreateSubject;
-import com.example.exams.database.async.subject.DeleteSubject;
-import com.example.exams.database.async.subject.UpdateSubject;
 import com.example.exams.database.entity.SubjectEntity;
+import com.example.exams.database.firebase.SubjectLiveData;
 import com.example.exams.util.OnAsyncEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,19 +30,38 @@ public class SubjectRepository {
 
     public LiveData<List<SubjectEntity>> getAllSubjects(Application application) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("subjects");
-        
-        return ((BaseApp) application).getDatabase().subjectDao().getAll();
+        return new SubjectLiveData(reference);
     }
 
     public void insert(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
-        new CreateSubject(application, callback).execute(sub);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("subjects");
+        String key = reference.push().getKey();
+        FirebaseDatabase.getInstance().getReference("subjects").child(key).setValue(sub, (databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
     public void update(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
-        new UpdateSubject(application, callback).execute(sub);
+        FirebaseDatabase.getInstance().getReference("subjects").child(sub.getId_Subject()).updateChildren(sub.toMap(), (databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
     public void delete(final SubjectEntity sub, OnAsyncEventListener callback, Application application){
-        new DeleteSubject(application, callback).execute(sub);
+        FirebaseDatabase.getInstance().getReference("strings").child(sub.getId_Subject()).removeValue((databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 }
