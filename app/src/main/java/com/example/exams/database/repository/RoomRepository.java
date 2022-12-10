@@ -74,7 +74,7 @@ public class RoomRepository {
         });
     }
 
-    public void delete(final RoomEntity room, OnAsyncEventListener callback, Application application){
+    public void delete(final RoomEntity room, OnAsyncEventListener callback){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("rooms");
         reference.child(room.getId_Room()).removeValue((databaseError, databaseReference) -> {

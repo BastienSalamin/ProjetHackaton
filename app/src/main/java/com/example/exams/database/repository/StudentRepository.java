@@ -9,7 +9,12 @@ import com.example.exams.database.async.student.CreateStudent;
 import com.example.exams.database.async.student.DeleteStudent;
 import com.example.exams.database.async.student.UpdateStudent;
 import com.example.exams.database.entity.StudentEntity;
+import com.example.exams.database.firebase.RoomLiveData;
+import com.example.exams.database.firebase.StudentLiveData;
+import com.example.exams.database.firebase.StudentsListLiveData;
 import com.example.exams.util.OnAsyncEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -31,22 +36,48 @@ public class StudentRepository {
     }
 
     public LiveData<List<StudentEntity>> getAllStudents(Application application) {
-        return ((BaseApp) application).getDatabase().studentDao().getAll();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("students");
+        return new StudentsListLiveData(reference);
     }
 
     public LiveData<StudentEntity> getStudent(final String studentId, Application application) {
-        return ((BaseApp) application).getDatabase().studentDao().getById(studentId);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("students").child(studentId);
+        return new StudentLiveData(reference);
     }
 
-    public void insert(final StudentEntity student, OnAsyncEventListener callback, Application application) {
-        new CreateStudent(application, callback).execute(student);
+    public void insert(final StudentEntity student, OnAsyncEventListener callback) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("students");
+        String key = reference.push().getKey();
+        FirebaseDatabase.getInstance().getReference("students").child(key).setValue(student, (databaseError, databaseReference) -> {
+            if(databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
-    public void update (final StudentEntity student, OnAsyncEventListener callback, Application application) {
-        new UpdateStudent(application, callback).execute(student);
+    public void update (final StudentEntity student, OnAsyncEventListener callback) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("students");
+        reference.child(student.getIdStudent()).updateChildren(student.toMap(),(databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
     public void delete (final StudentEntity student, OnAsyncEventListener callback, Application application) {
-        new DeleteStudent(application, callback).execute(student);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("students");
+        reference.child(student.getIdStudent()).removeValue((databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 }
