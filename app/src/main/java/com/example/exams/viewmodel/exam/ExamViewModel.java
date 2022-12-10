@@ -65,7 +65,7 @@ public class ExamViewModel extends AndroidViewModel {
         return observableExam;
     }
 
-    public LiveData<List<ExamsStudents>> getStudentsIdFromExam(String examId) {
+    public LiveData<List<ExamWithStudents>> getStudentsIdFromExam(String examId) {
         return repository.getStudentsIdFromExam(examId, application);
     }
 
@@ -77,7 +77,7 @@ public class ExamViewModel extends AndroidViewModel {
         repository.update(exam, callback, application);
     }
 
-    public void deleteExam(ExamEntity exam, OnAsyncEventListener callback) {
+    public void deleteExam(ExamWithStudents exam, OnAsyncEventListener callback) {
         repository.delete(exam, callback, application);
     }
 }

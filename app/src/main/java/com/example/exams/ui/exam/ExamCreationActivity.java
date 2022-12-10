@@ -24,6 +24,7 @@ import com.example.exams.R;
 import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.SubjectEntity;
+import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.ui.MainActivity;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
@@ -43,6 +44,8 @@ public class ExamCreationActivity extends AppCompatActivity {
     private List<RoomEntity> rooms;
 
     private ExamEntity examEntity;
+
+    private List<ExamWithStudents> examWithStudents;
 
     private SubjectsListViewModel subjectViewModel;
 
@@ -89,6 +92,12 @@ public class ExamCreationActivity extends AppCompatActivity {
                 }
             });
 
+            examViewModel.getStudentsIdFromExam(examEntity.getIdExam()).observe(this, salut -> {
+                if(salut != null) {
+                    examWithStudents = salut;
+                }
+            });
+
             subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
 
             subjectViewModel.getAllSubjects().observe(this, subjectsToList -> {
@@ -99,7 +108,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                     }
 
                     subjectList = new String[subjects.size()];
-                    int subjectId = Integer.parseInt(examInfo[5]);
+                    String subjectId = examInfo[5];
                     String insertedSubject = "";
 
                     for(int i = 0 ; i < subjectList.length ; i++) {
@@ -136,7 +145,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                     }
 
                     roomList = new String[rooms.size()];
-                    int roomId = Integer.parseInt(examInfo[4]);
+                    String roomId = examInfo[4];
                     String insertedRoom = "";
 
                     for(int i = 0 ; i < roomList.length ; i++) {
@@ -226,8 +235,8 @@ public class ExamCreationActivity extends AppCompatActivity {
                 String examSubject = subjectSpinner.getSelectedItem().toString();
                 int position1 = subjectSpinner.getSelectedItemPosition();
                 SubjectEntity subject = subjects.get(position1);
-                int subjectId = subject.getId_Subject();
-                String subjectIdString = Integer.toString(subjectId);
+                String subjectId = subject.getId_Subject();
+                String subjectIdString = subjectId;
 
                 EditText editText2 = findViewById(R.id.examDate);
                 String examDate = editText2.getText().toString();
@@ -239,8 +248,8 @@ public class ExamCreationActivity extends AppCompatActivity {
                 String examRoom = roomSpinner.getSelectedItem().toString();
                 int position2 = roomSpinner.getSelectedItemPosition();
                 RoomEntity room = rooms.get(position2);
-                int roomId = room.getId_Room();
-                String roomIdString = Integer.toString(roomId);
+                String roomId = room.getId_Room();
+                String roomIdString = roomId;
 
                 if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("")) {
                     Context context = getApplicationContext();
@@ -275,8 +284,8 @@ public class ExamCreationActivity extends AppCompatActivity {
                 String examSubject = subjectSpinner.getSelectedItem().toString();
                 int position1 = subjectSpinner.getSelectedItemPosition();
                 SubjectEntity subject = subjects.get(position1);
-                int subjectId = subject.getId_Subject();
-                String subjectIdString = Integer.toString(subjectId);
+                String subjectId = subject.getId_Subject();
+                String subjectIdString = subjectId;
 
                 EditText editText2 = findViewById(R.id.examDate);
                 String examDate = editText2.getText().toString();
@@ -288,15 +297,15 @@ public class ExamCreationActivity extends AppCompatActivity {
                 String examRoom = roomSpinner.getSelectedItem().toString();
                 int position2 = roomSpinner.getSelectedItemPosition();
                 RoomEntity room = rooms.get(position2);
-                int roomId = room.getId_Room();
-                String roomIdString = Integer.toString(roomId);
+                String roomId = room.getId_Room();
+                String roomIdString = roomId;
 
                 if(examDate.equalsIgnoreCase("") || examDuration.equalsIgnoreCase("")) {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    String[] examData = {Integer.toString(examEntity.getIdExam()), subjectIdString, examSubject, examDate, examDuration, roomIdString, examRoom};
+                    String[] examData = {examEntity.getIdExam(), subjectIdString, examSubject, examDate, examDuration, roomIdString, examRoom};
 
                     Intent intent = new Intent(ExamCreationActivity.this, StudentsEditionActivity.class);
                     intent.putExtra("ExamsInfo", examData);
@@ -325,18 +334,19 @@ public class ExamCreationActivity extends AppCompatActivity {
                 alertDialog.setCancelable(false);
 
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui", (dialog, which) -> {
-                    examViewModel.deleteExam(examEntity, new OnAsyncEventListener() {
-                        @Override
-                        public void onSuccess() {
-                            Log.d(TAG, "deleteExam: success");
-                        }
+                    for(int i = 0 ; i < examWithStudents.size() ; i++) {
+                        examViewModel.deleteExam(examWithStudents.get(i), new OnAsyncEventListener() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d(TAG, "deleteExam: success");
+                            }
 
-                        @Override
-                        public void onFailure(Exception e) {
-                            Log.d(TAG, "deleteExam: failure", e);
-                        }
-                    });
-
+                            @Override
+                            public void onFailure(Exception e) {
+                                Log.d(TAG, "deleteExam: failure", e);
+                            }
+                        });
+                    }
                     Intent intent = new Intent(ExamCreationActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

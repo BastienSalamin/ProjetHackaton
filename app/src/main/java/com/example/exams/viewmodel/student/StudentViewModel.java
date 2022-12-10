@@ -62,11 +62,11 @@ public class StudentViewModel extends AndroidViewModel {
     }
 
     public void createStudent(StudentEntity student, OnAsyncEventListener callback) {
-        repository.insert(student, callback, application);
+        repository.insert(student, callback);
     }
 
     public void updateStudent(StudentEntity student, OnAsyncEventListener callback) {
-        repository.update(student, callback, application);
+        repository.update(student, callback);
     }
 
     public void deleteStudent(StudentEntity student, OnAsyncEventListener callback) {
