@@ -192,12 +192,7 @@ public class StudentsSelectionActivity extends AppCompatActivity {
         }
 
         exam = new ExamWithStudents();
-        exam.exam = new ExamEntity();
-        exam.exam.setDate(examData[1]);
-        exam.exam.setDuration(Integer.parseInt(examData[2]));
-        exam.exam.setNumberStudents(count);
-        exam.exam.setRoom(examData[3]);
-        exam.exam.setSubject(examData[0]);
+        exam.exam = new ExamEntity(examData[1], Integer.parseInt(examData[2]), count, examData[0], examData[3]);
         exam.students = new ArrayList<StudentEntity>();
 
         for(int i = 0 ; i < checkedStudents.size() ; i++) {

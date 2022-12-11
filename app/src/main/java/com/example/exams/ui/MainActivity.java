@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ExamEntity examSelected = exams.get(i);
-                String[] examInfos = {examSelected.getIdExam(), examSelected.getDate(), Integer.toString(examSelected.getDuration()), Integer.toString(examSelected.getNumberStudents()), examSelected.getRoom(), examSelected.getSubject()};
+                String[] examInfos = {examSelected.getIdExam(), examSelected.getDate(), Integer.toString(examSelected.getDuration()), Integer.toString(examSelected.getNumberStudents()), examSelected.getRoomName(), examSelected.getSubjectName()};
 
                 Intent intent = new Intent(MainActivity.this, ExamCreationActivity.class);
                 intent.putExtra("ExamInfo", examInfos);

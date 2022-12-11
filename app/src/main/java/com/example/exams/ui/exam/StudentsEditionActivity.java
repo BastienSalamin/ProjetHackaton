@@ -75,10 +75,10 @@ public class StudentsEditionActivity extends AppCompatActivity {
         examViewModel.getExam().observe(this, examEntity -> {
             if(examEntity != null) {
                 exam = examEntity;
-                exam.setSubject(examData[1]);
+                exam.setSubjectName(examData[1]);
                 exam.setDate(examData[2]);
                 exam.setDuration(Integer.parseInt(examData[3]));
-                exam.setRoom(examData[4]);
+                exam.setRoomName(examData[4]);
             }
         });
 

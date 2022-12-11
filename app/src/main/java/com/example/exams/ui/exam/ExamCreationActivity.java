@@ -32,6 +32,8 @@ import com.example.exams.viewmodel.room.RoomsListViewModel;
 import com.example.exams.viewmodel.subject.SubjectsListViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ExamCreationActivity extends AppCompatActivity {
@@ -91,13 +93,13 @@ public class ExamCreationActivity extends AppCompatActivity {
                     examEntity = entity;
                 }
             });
-
+            /*
             examViewModel.getStudentsIdFromExam(examEntity.getIdExam()).observe(this, salut -> {
                 if(salut != null) {
                     examWithStudents = salut;
                 }
             });
-
+            */
             subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
 
             subjectViewModel.getAllSubjects().observe(this, subjectsToList -> {
@@ -163,6 +165,14 @@ public class ExamCreationActivity extends AppCompatActivity {
                         subjects.add(subject);
                     }
 
+                    Collections.sort(subjects, new Comparator<SubjectEntity>() {
+                        @Override
+                        public int compare(SubjectEntity t1, SubjectEntity t2) {
+                            int resultat = t1.getSubjectName().compareTo(t2.getSubjectName());
+                            return resultat;
+                        }
+                    });
+
                     subjectList = new String[subjects.size()];
 
                     for(int i = 0 ; i < subjectList.length ; i++) {
@@ -184,6 +194,14 @@ public class ExamCreationActivity extends AppCompatActivity {
                     for(RoomEntity room : roomsToList) {
                         rooms.add(room);
                     }
+
+                    Collections.sort(rooms, new Comparator<RoomEntity>() {
+                        @Override
+                        public int compare(RoomEntity t1, RoomEntity t2) {
+                            int resultat = t1.getRoomName().compareTo(t2.getRoomName());
+                            return resultat;
+                        }
+                    });
 
                     roomList = new String[rooms.size()];
 

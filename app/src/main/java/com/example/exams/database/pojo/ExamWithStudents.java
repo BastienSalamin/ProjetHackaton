@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ExamWithStudents {
     /*@Embedded*/
+    @Exclude
     public ExamEntity exam;
 
     /*@Relation(
@@ -16,6 +17,7 @@ public class ExamWithStudents {
             entityColumn = "idStudent",
             associateBy = @Junction(ExamsStudents.class)
     )*/
+
     public List<StudentEntity> students;
 
     @Exclude

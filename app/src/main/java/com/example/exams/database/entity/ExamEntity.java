@@ -32,12 +32,12 @@ public class ExamEntity {
 
     }
 
-    public ExamEntity(String date, int duration, int numberStudents, String room, String subject){
+    public ExamEntity(String date, int duration, int numberStudents, String subjectName, String roomName){
         this.date = date;
         this.duration = duration;
         this.numberStudents = numberStudents;
-        this.subjectName = subject;
-        this.roomName = room;
+        this.subjectName = subjectName;
+        this.roomName = roomName;
     }
 
     // @PrimaryKey(autoGenerate = true)
@@ -91,20 +91,20 @@ public class ExamEntity {
         this.numberStudents = numberStudents;
     }
 
-    public String getSubject() {
+    public String getSubjectName() {
         return subjectName;
     }
 
-    public void setSubject(String subject) {
-        this.subjectName = subject;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
-    public String getRoom() {
+    public String getRoomName() {
         return roomName;
     }
 
-    public void setRoom(String room) {
-        this.roomName = room;
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     @Exclude
