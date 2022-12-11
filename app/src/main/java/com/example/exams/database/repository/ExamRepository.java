@@ -48,8 +48,8 @@ public class ExamRepository {
     public void insert(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
         // Insertion dans la table Exams
         DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("exams");
-        String clef = dbReference.push().getKey();
-        FirebaseDatabase.getInstance().getReference("exams").child(clef).setValue(exam.exam, (databaseErr, databaseRef) -> {
+        String key = dbReference.push().getKey();
+        FirebaseDatabase.getInstance().getReference("exams").child(key).setValue(exam.exam, (databaseErr, databaseRef) -> {
             if(databaseErr != null) {
                 callback.onFailure(databaseErr.toException());
             } else {
@@ -57,8 +57,6 @@ public class ExamRepository {
             }
         });
         // Insertion dans la table ExamsStudents
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("examsStudents");
-        String key = reference.push().getKey();
         FirebaseDatabase.getInstance().getReference("examsStudents").child(key).setValue(exam, (databaseError, databaseReference) -> {
             if(databaseError != null) {
                 callback.onFailure(databaseError.toException());

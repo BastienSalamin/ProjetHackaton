@@ -91,7 +91,6 @@ public class ExamEntity {
         this.numberStudents = numberStudents;
     }
 
-    @Exclude
     public String getSubject() {
         return subjectName;
     }
@@ -100,7 +99,6 @@ public class ExamEntity {
         this.subjectName = subject;
     }
 
-    @Exclude
     public String getRoom() {
         return roomName;
     }
