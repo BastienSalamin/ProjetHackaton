@@ -125,8 +125,8 @@ public class StudentActivity extends AppCompatActivity {
                         }
                     });
 
-                    Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
+                    startActivity(intent);*/
                     finish();
                 }
             }
@@ -176,8 +176,8 @@ public class StudentActivity extends AppCompatActivity {
                         }
                     });
 
-                    Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
+                    startActivity(intent);*/
                     finish();
                 }
             }
@@ -214,8 +214,8 @@ public class StudentActivity extends AppCompatActivity {
                         }
                     });
 
-                    Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
+                    startActivity(intent);*/
                     finish();
                 });
 

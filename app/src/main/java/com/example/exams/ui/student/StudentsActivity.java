@@ -76,6 +76,14 @@ public class StudentsActivity extends MainActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(students != null) {
+            students.clear();
+        }
+    }
+
     /**
      * Create the title layout for the user interface
      * @param layout

@@ -116,11 +116,10 @@ public class StudentsEditionActivity extends AppCompatActivity {
                     createTable(table, i);
                 }
 
-                //TODO: pourquoi il check le mauvais étudiant ???
                 for(int i = 0 ; i < checkList.size() ; i++) {
                     for(int j = 0 ; j < examStudents.idStudent.size() ; j++) {
-                            if(examStudents.idStudent.get(j).equals(studentsToList.get(i).getIdStudent())){
-                                checkList.get(j).setChecked(true);
+                            if(examStudents.idStudent.get(j).equals(students.get(i).getIdStudent())){
+                                checkList.get(i).setChecked(true);
                             }
                     }
                 }
@@ -240,8 +239,8 @@ public class StudentsEditionActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        /*Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);*/
         finish();
     }
 

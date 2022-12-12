@@ -365,8 +365,8 @@ public class ExamCreationActivity extends AppCompatActivity {
                         }
                     });
 
-                    Intent intent = new Intent(ExamCreationActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(ExamCreationActivity.this, MainActivity.class);
+                    startActivity(intent);*/
                     finish();
                 });
 
