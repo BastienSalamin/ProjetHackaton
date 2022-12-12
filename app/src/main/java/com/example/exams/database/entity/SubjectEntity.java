@@ -5,16 +5,11 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-// @Entity(tableName = "Subject")
 public class SubjectEntity {
-
-    // @PrimaryKey(autoGenerate = true)
     private String id_Subject;
 
-    // @ColumnInfo(name = "subject_name")
     private String subjectName;
 
-    // @Ignore
     public SubjectEntity(){
 
     }

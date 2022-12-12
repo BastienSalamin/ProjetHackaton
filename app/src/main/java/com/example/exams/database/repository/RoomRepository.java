@@ -50,16 +50,6 @@ public class RoomRepository {
                 }
             }
         });
-
-       /* DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rooms");
-        String key = reference.push().getKey();
-        FirebaseDatabase.getInstance().getReference("rooms").child(key).setValue(room, (databaseError, databaseReference) -> {
-            if(databaseError != null) {
-                callback.onFailure(databaseError.toException());
-            } else {
-                callback.onSuccess();
-            }
-        });*/
     }
 
     public void update(final RoomEntity room, OnAsyncEventListener callback) {

@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,7 +25,6 @@ import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.SubjectEntity;
 import com.example.exams.database.pojo.ExamWithStudents;
-import com.example.exams.ui.MainActivity;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.exam.ExamsListViewModel;
@@ -46,8 +44,6 @@ public class ExamCreationActivity extends AppCompatActivity {
     private List<SubjectEntity> subjects;
 
     private List<RoomEntity> rooms;
-
-    private ExamEntity examEntity;
 
     private ExamWithStudents examWithStudents;
 
@@ -364,9 +360,6 @@ public class ExamCreationActivity extends AppCompatActivity {
                             Log.d(TAG, "deleteExam: failure", e);
                         }
                     });
-
-                    /*Intent intent = new Intent(ExamCreationActivity.this, MainActivity.class);
-                    startActivity(intent);*/
                     finish();
                 });
 

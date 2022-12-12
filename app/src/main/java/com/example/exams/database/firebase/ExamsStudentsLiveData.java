@@ -11,9 +11,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ExamsStudentsLiveData extends LiveData<ExamWithStudents> {
     private static final String TAG = "ExamsStudentsLiveData";
 

@@ -15,8 +15,6 @@ import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.database.repository.ExamRepository;
 import com.example.exams.util.OnAsyncEventListener;
 
-import java.util.List;
-
 public class ExamViewModel extends AndroidViewModel {
     private Application application;
 

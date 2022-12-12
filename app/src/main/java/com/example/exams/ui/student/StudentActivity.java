@@ -124,9 +124,6 @@ public class StudentActivity extends AppCompatActivity {
                             Log.d(TAG, "createStudent: failure", e);
                         }
                     });
-
-                    /*Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                    startActivity(intent);*/
                     finish();
                 }
             }
@@ -175,9 +172,6 @@ public class StudentActivity extends AppCompatActivity {
                             Log.d(TAG, "updateStudent: failure", e);
                         }
                     });
-
-                    /*Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                    startActivity(intent);*/
                     finish();
                 }
             }
@@ -213,9 +207,6 @@ public class StudentActivity extends AppCompatActivity {
                             Log.d(TAG, "deleteStudent: failure", e);
                         }
                     });
-
-                    /*Intent intent = new Intent(StudentActivity.this, StudentsActivity.class);
-                    startActivity(intent);*/
                     finish();
                 });
 

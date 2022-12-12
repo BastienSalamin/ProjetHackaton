@@ -5,21 +5,15 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-// @Entity(tableName = "Student")
 public class StudentEntity {
-    // @PrimaryKey(autoGenerate = true)
     private String idStudent;
 
-    // @ColumnInfo(name = "Class")
     private String className;
 
-    // @ColumnInfo(name = "Surname")
     private String surname;
 
-    // @ColumnInfo(name = "Name")
     private String name;
 
-    // @Ignore
     public StudentEntity() {
     }
 

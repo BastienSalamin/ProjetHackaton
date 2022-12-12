@@ -9,14 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ExamWithStudents {
-    /*@Embedded*/
     public ExamEntity exam;
-
-    /*@Relation(
-            parentColumn = "idExam",
-            entityColumn = "idStudent",
-            associateBy = @Junction(ExamsStudents.class)
-    )*/
 
     public List<StudentEntity> students;
 
