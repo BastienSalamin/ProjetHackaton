@@ -98,12 +98,14 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ExamEntity examSelected = exams.get(i);
-                String[] examInfos = {examSelected.getIdExam(), examSelected.getDate(), Integer.toString(examSelected.getDuration()), Integer.toString(examSelected.getNumberStudents()), examSelected.getRoomName(), examSelected.getSubjectName()};
+                if (i >= 0 && i < exams.size()) {
+                    ExamEntity examSelected = exams.get(i);
+                    String[] examInfos = {examSelected.getIdExam(), examSelected.getDate(), Integer.toString(examSelected.getDuration()), Integer.toString(examSelected.getNumberStudents()), examSelected.getRoomName(), examSelected.getSubjectName()};
+                    Intent intent = new Intent(MainActivity.this, ExamCreationActivity.class);
+                    intent.putExtra("ExamInfo", examInfos);
+                    startActivity(intent);
+                }
 
-                Intent intent = new Intent(MainActivity.this, ExamCreationActivity.class);
-                intent.putExtra("ExamInfo", examInfos);
-                startActivity(intent);
             }
         });
         listView.setAdapter(listAdapter);
