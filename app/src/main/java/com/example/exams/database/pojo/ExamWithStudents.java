@@ -4,6 +4,7 @@ import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.database.entity.StudentEntity;
 import com.google.firebase.database.Exclude;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class ExamWithStudents {
     public List<StudentEntity> students;
 
     private String id;
+
+    public List<String> idStudent = new ArrayList<>();
 
     @Exclude
     public String getId() {

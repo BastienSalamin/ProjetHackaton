@@ -39,8 +39,16 @@ public class ExamsStudentsLiveData extends LiveData<ExamWithStudents> {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             ExamWithStudents entity = dataSnapshot.getValue(ExamWithStudents.class);
-            entity.setId(dataSnapshot.getKey());
-            setValue(entity);
+            if(entity != null){
+                entity.setId(dataSnapshot.getKey());
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    entity.idStudent.add(child.getKey());
+                }
+                setValue(entity);
+            }
+            else{
+                System.out.println("T'as cru qu'une exception allait se lever ? ;-)");
+            }
         }
 
         @Override

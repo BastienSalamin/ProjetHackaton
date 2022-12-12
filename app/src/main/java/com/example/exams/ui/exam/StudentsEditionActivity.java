@@ -116,10 +116,11 @@ public class StudentsEditionActivity extends AppCompatActivity {
                     createTable(table, i);
                 }
 
+                //TODO: pourquoi il check le mauvais étudiant ???
                 for(int i = 0 ; i < checkList.size() ; i++) {
-                    for(int j = 0 ; j < examStudents.students.size() ; j++) {
-                            if(examStudents.students.get(j).getIdStudent() == students.get(i).getIdStudent()) {
-                                checkList.get(i).setChecked(true);
+                    for(int j = 0 ; j < examStudents.idStudent.size() ; j++) {
+                            if(examStudents.idStudent.get(j).equals(studentsToList.get(i).getIdStudent())){
+                                checkList.get(j).setChecked(true);
                             }
                     }
                 }
@@ -219,10 +220,12 @@ public class StudentsEditionActivity extends AppCompatActivity {
         examUpdated = new ExamWithStudents();
         examUpdated.exam = exam;
         examUpdated.students = new ArrayList<StudentEntity>();
+        examUpdated.setId(examUpdated.exam.getIdExam());
 
         for (int i = 0 ; i < checkedStudents.size() ; i++) {
             StudentEntity student = checkedStudents.get(i);
             examUpdated.students.add(student);
+            examUpdated.idStudent.add(student.getIdStudent());
         }
 
         examViewModel.updateExam(examUpdated, new OnAsyncEventListener() {

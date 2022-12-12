@@ -57,7 +57,7 @@ public class ExamRepository {
             }
         });
         // Insertion dans la table ExamsStudents
-        FirebaseDatabase.getInstance().getReference("examsStudents").child(key).setValue(exam, (databaseError, databaseReference) -> {
+        FirebaseDatabase.getInstance().getReference("examsStudents").child(key).setValue(exam.toMap(), (databaseError, databaseReference) -> {
             if(databaseError != null) {
                 callback.onFailure(databaseError.toException());
             } else {
@@ -76,7 +76,7 @@ public class ExamRepository {
             }
         });
         // Modification dans la table ExamsStudents
-        FirebaseDatabase.getInstance().getReference("examsStudents").child(exam.exam.getIdExam()).updateChildren(exam.toMap(), (databaseError, databaseReference) -> {
+        FirebaseDatabase.getInstance().getReference("examsStudents").child(exam.getId()).setValue(exam.toMap(), (databaseError, databaseReference) -> {
             if(databaseError != null) {
                 callback.onFailure(databaseError.toException());
             } else {
@@ -86,18 +86,18 @@ public class ExamRepository {
     }
 
     public void delete(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
-        // Suppression dans la table Exams
-        FirebaseDatabase.getInstance().getReference("exams").child(exam.getId()).removeValue((databaseErr, databaseRef) -> {
-            if(databaseErr != null) {
-                callback.onFailure(databaseErr.toException());
-            } else {
-                callback.onSuccess();
-            }
-        });
         // Suppression dans la table ExamsStudents
         FirebaseDatabase.getInstance().getReference("examsStudents").child(exam.getId()).removeValue((databaseError, databaseReference) -> {
             if(databaseError != null) {
                 callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
+        // Suppression dans la table Exams
+        FirebaseDatabase.getInstance().getReference("exams").child(exam.getId()).removeValue((databaseErr, databaseRef) -> {
+            if(databaseErr != null) {
+                callback.onFailure(databaseErr.toException());
             } else {
                 callback.onSuccess();
             }
