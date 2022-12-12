@@ -28,6 +28,8 @@ public class StudentsActivity extends MainActivity {
 
     private StudentsListViewModel viewModel;
 
+    private LinearLayout table;
+
     /**
      * Display the students retrieved from the database and sort the data in order
      * @param savedInstanceState
@@ -63,7 +65,7 @@ public class StudentsActivity extends MainActivity {
                     }
                 });
 
-                LinearLayout table = findViewById(R.id.table);
+                table = findViewById(R.id.table);
 
                 int size = students.size();
 
@@ -79,8 +81,8 @@ public class StudentsActivity extends MainActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(students != null) {
-            students.clear();
+        if(table != null) {
+            table.removeAllViews();
         }
     }
 
