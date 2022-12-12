@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorOnTertiary">@color/black</item>
     </style>
     <style name="Theme.Exams.NoActionBar" parent="Theme.Exams">
         <item name="windowActionBar">false</item>
