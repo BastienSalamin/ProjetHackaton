@@ -63,8 +63,8 @@ public class ExamEntity {
         return idExam;
     }
 
-    public void setIdExam(String id_Exam) {
-        this.idExam = id_Exam;
+    public void setIdExam(String idExam) {
+        this.idExam = idExam;
     }
 
     public String getDate() {

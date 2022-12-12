@@ -14,7 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExamsStudentsLiveData extends LiveData<List<ExamWithStudents>> {
+public class ExamsStudentsLiveData extends LiveData<ExamWithStudents> {
     private static final String TAG = "ExamsStudentsLiveData";
 
     private final DatabaseReference reference;
@@ -38,22 +38,14 @@ public class ExamsStudentsLiveData extends LiveData<List<ExamWithStudents>> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            setValue(toExamsStudentsList(dataSnapshot));
+            ExamWithStudents entity = dataSnapshot.getValue(ExamWithStudents.class);
+            entity.setId(dataSnapshot.getKey());
+            setValue(entity);
         }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
             Log.e(TAG, "Can't listen to query " + reference, databaseError.toException());
         }
-    }
-
-    private List<ExamWithStudents> toExamsStudentsList(DataSnapshot snapshot) {
-        List<ExamWithStudents> examWithStudentsList = new ArrayList<>();
-        for(DataSnapshot childSnapshot : snapshot.getChildren()) {
-            ExamWithStudents exam = childSnapshot.getValue(ExamWithStudents.class);
-            exam.exam.setIdExam(childSnapshot.getKey());
-            examWithStudentsList.add(exam);
-        }
-        return examWithStudentsList;
     }
 }

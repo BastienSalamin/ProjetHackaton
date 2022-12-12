@@ -46,7 +46,7 @@ public class StudentsEditionActivity extends AppCompatActivity {
 
     private List<StudentEntity> students;
 
-    private List<ExamWithStudents> examStudents = new ArrayList<ExamWithStudents>();
+    private ExamWithStudents examStudents;
 
     private ExamViewModel examViewModel;
 
@@ -82,11 +82,9 @@ public class StudentsEditionActivity extends AppCompatActivity {
             }
         });
 
-        examViewModel.getStudentsIdFromExam(examData[0]).observe(this, examStudentsToList -> {
-            if(examStudentsToList != null) {
-                for(ExamWithStudents examStudent : examStudentsToList) {
-                    examStudents.add(examStudent);
-                }
+        examViewModel.getStudentsIdFromExam(examData[0]).observe(this, entity -> {
+            if(entity != null) {
+                    examStudents = entity;
             }
         });
 
@@ -119,12 +117,10 @@ public class StudentsEditionActivity extends AppCompatActivity {
                 }
 
                 for(int i = 0 ; i < checkList.size() ; i++) {
-                    for(int j = 0 ; j < examStudents.size() ; j++) {
-                        for(int k = 0 ; k < examStudents.get(j).students.size() ; k++) {
-                            if(examStudents.get(j).students.get(k).getIdStudent() == students.get(i).getIdStudent()) {
+                    for(int j = 0 ; j < examStudents.students.size() ; j++) {
+                            if(examStudents.students.get(j).getIdStudent() == students.get(i).getIdStudent()) {
                                 checkList.get(i).setChecked(true);
                             }
-                        }
                     }
                 }
             }

@@ -64,7 +64,7 @@ public class ExamViewModel extends AndroidViewModel {
         return observableExam;
     }
 
-    public LiveData<List<ExamWithStudents>> getStudentsIdFromExam(String examId) {
+    public LiveData<ExamWithStudents> getStudentsIdFromExam(String examId) {
         return repository.getStudentsIdFromExam(examId, application);
     }
 

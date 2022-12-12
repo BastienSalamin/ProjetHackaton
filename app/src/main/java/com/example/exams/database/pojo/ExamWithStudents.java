@@ -9,7 +9,6 @@ import java.util.List;
 
 public class ExamWithStudents {
     /*@Embedded*/
-    @Exclude
     public ExamEntity exam;
 
     /*@Relation(
@@ -19,6 +18,17 @@ public class ExamWithStudents {
     )*/
 
     public List<StudentEntity> students;
+
+    private String id;
+
+    @Exclude
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Exclude
     public HashMap<String, Object> toMap() {

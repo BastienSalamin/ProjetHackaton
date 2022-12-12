@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.ui.MainActivity;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
+import com.example.exams.viewmodel.exam.ExamsListViewModel;
 import com.example.exams.viewmodel.room.RoomsListViewModel;
 import com.example.exams.viewmodel.subject.SubjectsListViewModel;
 
@@ -47,13 +49,15 @@ public class ExamCreationActivity extends AppCompatActivity {
 
     private ExamEntity examEntity;
 
-    private List<ExamWithStudents> examWithStudents;
+    private ExamWithStudents examWithStudents;
+
+    private ExamViewModel viewModel;
 
     private SubjectsListViewModel subjectViewModel;
 
     private RoomsListViewModel roomViewModel;
 
-    private ExamViewModel examViewModel;
+    private ExamsListViewModel examViewModel;
 
     private String[] subjectList;
 
@@ -84,22 +88,26 @@ public class ExamCreationActivity extends AppCompatActivity {
 
         if(checkData){
             examInfo = intent.getStringArrayExtra("ExamInfo");
-            String examId = examInfo[0];
 
-            ExamViewModel.Factory factory = new ExamViewModel.Factory(getApplication(), examId);
-            examViewModel = ViewModelProviders.of((FragmentActivity) this, (ViewModelProvider.Factory) factory).get(ExamViewModel.class);
-            examViewModel.getExam().observe(this, entity -> {
-                if(entity != null) {
-                    examEntity = entity;
+            examViewModel = ViewModelProviders.of(this).get(ExamsListViewModel.class);
+
+            examViewModel.getAllExams().observe(this, examsToList -> {
+                if(examsToList != null) {
+                    for(ExamEntity exam : examsToList) {
+                        if(exam.getIdExam().equals(examInfo[0])){
+                            ExamViewModel.Factory factory = new ExamViewModel.Factory(getApplication(), examInfo[0]);
+                            viewModel = ViewModelProviders.of((FragmentActivity) this, (ViewModelProvider.Factory) factory).get(ExamViewModel.class);
+                            viewModel.getStudentsIdFromExam(exam.getIdExam()).observe(this, entity -> {
+                                if(entity != null) {
+                                    examWithStudents = entity;
+                                }
+                            });
+
+                        }
+                    }
                 }
             });
-            /*
-            examViewModel.getStudentsIdFromExam(examEntity.getIdExam()).observe(this, salut -> {
-                if(salut != null) {
-                    examWithStudents = salut;
-                }
-            });
-            */
+
             subjectViewModel = ViewModelProviders.of(this).get(SubjectsListViewModel.class);
 
             subjectViewModel.getAllSubjects().observe(this, subjectsToList -> {
@@ -109,12 +117,24 @@ public class ExamCreationActivity extends AppCompatActivity {
                         subjects.add(subject);
                     }
 
+                    Collections.sort(subjects, new Comparator<SubjectEntity>() {
+                        @Override
+                        public int compare(SubjectEntity t1, SubjectEntity t2) {
+                            int resultat = t1.getSubjectName().compareTo(t2.getSubjectName());
+                            return resultat;
+                        }
+                    });
+
                     subjectList = new String[subjects.size()];
-                    String insertedSubject = examInfo[5];
+
+                    for(int i = 0 ; i < subjectList.length ; i++) {
+                        subjectList[i] = subjects.get(i).getSubjectName();
+                    }
 
                     Spinner subjectSpinner = findViewById(R.id.subjectsSpinner);
                     ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjectList);
 
+                    String insertedSubject = examInfo[5];
                     int position = aa.getPosition(insertedSubject);
 
                     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -138,12 +158,24 @@ public class ExamCreationActivity extends AppCompatActivity {
                         rooms.add(room);
                     }
 
+                    Collections.sort(rooms, new Comparator<RoomEntity>() {
+                        @Override
+                        public int compare(RoomEntity t1, RoomEntity t2) {
+                            int resultat = t1.getRoomName().compareTo(t2.getRoomName());
+                            return resultat;
+                        }
+                    });
+
                     roomList = new String[rooms.size()];
-                    String insertedRoom = examInfo[4];
+
+                    for(int i = 0 ; i < roomList.length ; i++) {
+                        roomList[i] = rooms.get(i).getRoomName();
+                    }
 
                     Spinner roomSpinner = findViewById(R.id.roomsSpinner);
                     ArrayAdapter<String> aa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, roomList);
 
+                    String insertedRoom = examInfo[4];
                     int position = aa.getPosition(insertedRoom);
 
                     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -292,7 +324,7 @@ public class ExamCreationActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    String[] examData = {examEntity.getIdExam(), examSubject, examDate, examDuration, examRoom};
+                    String[] examData = {examInfo[0], examSubject, examDate, examDuration, examRoom};
 
                     Intent intent = new Intent(ExamCreationActivity.this, StudentsEditionActivity.class);
                     intent.putExtra("ExamsInfo", examData);
@@ -321,19 +353,18 @@ public class ExamCreationActivity extends AppCompatActivity {
                 alertDialog.setCancelable(false);
 
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Oui", (dialog, which) -> {
-                    for(int i = 0 ; i < examWithStudents.size() ; i++) {
-                        examViewModel.deleteExam(examWithStudents.get(i), new OnAsyncEventListener() {
-                            @Override
-                            public void onSuccess() {
-                                Log.d(TAG, "deleteExam: success");
-                            }
+                    viewModel.deleteExam(examWithStudents, new OnAsyncEventListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "deleteExam: success");
+                        }
 
-                            @Override
-                            public void onFailure(Exception e) {
-                                Log.d(TAG, "deleteExam: failure", e);
-                            }
-                        });
-                    }
+                        @Override
+                        public void onFailure(Exception e) {
+                            Log.d(TAG, "deleteExam: failure", e);
+                        }
+                    });
+
                     Intent intent = new Intent(ExamCreationActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

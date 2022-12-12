@@ -18,7 +18,7 @@ public class ExamLiveData extends LiveData<ExamEntity> {
     private final ExamLiveData.MyValueEventListener listener = new ExamLiveData.MyValueEventListener();
 
     public ExamLiveData(DatabaseReference ref) {
-        reference = ref;
+        this.reference = ref;
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ExamRepository {
         return new ExamLiveData(reference);
     }
 
-    public LiveData<List<ExamWithStudents>> getStudentsIdFromExam(final String examId, Application application) {
+    public LiveData<ExamWithStudents> getStudentsIdFromExam(final String examId, Application application) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("examsStudents").child(examId);
         return new ExamsStudentsLiveData(reference);
     }
@@ -87,7 +87,7 @@ public class ExamRepository {
 
     public void delete(final ExamWithStudents exam, OnAsyncEventListener callback, Application application){
         // Suppression dans la table Exams
-        FirebaseDatabase.getInstance().getReference("exams").child(exam.exam.getIdExam()).removeValue((databaseErr, databaseRef) -> {
+        FirebaseDatabase.getInstance().getReference("exams").child(exam.getId()).removeValue((databaseErr, databaseRef) -> {
             if(databaseErr != null) {
                 callback.onFailure(databaseErr.toException());
             } else {
@@ -95,7 +95,7 @@ public class ExamRepository {
             }
         });
         // Suppression dans la table ExamsStudents
-        FirebaseDatabase.getInstance().getReference("examsStudents").child(exam.exam.getIdExam()).removeValue((databaseError, databaseReference) -> {
+        FirebaseDatabase.getInstance().getReference("examsStudents").child(exam.getId()).removeValue((databaseError, databaseReference) -> {
             if(databaseError != null) {
                 callback.onFailure(databaseError.toException());
             } else {
