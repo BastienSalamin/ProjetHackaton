@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.mgmt.SettingsActivity">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
@@ -28,7 +31,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     <Switch

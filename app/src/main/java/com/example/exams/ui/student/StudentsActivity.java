@@ -2,6 +2,8 @@ package com.example.exams.ui.student;
 
 import static android.graphics.Color.*;
 
+import static com.example.exams.ui.mgmt.SettingsActivity.isDarkModeOn;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -105,7 +107,11 @@ public class StudentsActivity extends MainActivity {
             TextView col1 = new TextView(this);
             col1.setText(titles[i]);
             col1.setTextSize(22);
-            col1.setTextColor(BLACK);
+            if(isDarkModeOn){
+                col1.setTextColor(WHITE);
+            } else {
+                col1.setTextColor(BLACK);
+            }
             col1.setPadding(2,0,0,0);
             col1.setLayoutParams(layoutParams);
             row.addView(col1);
@@ -137,7 +143,11 @@ public class StudentsActivity extends MainActivity {
             TextView col1 = new TextView(this);
             col1.setText(studentData[i]);
             col1.setTextSize(15);
-            col1.setTextColor(DKGRAY);
+            if(isDarkModeOn){
+                col1.setTextColor(LTGRAY);
+            } else {
+                col1.setTextColor(DKGRAY);
+            }
             col1.setLines(2);
             col1.setPadding(2,0,0,0);
             col1.setLayoutParams(textParams);

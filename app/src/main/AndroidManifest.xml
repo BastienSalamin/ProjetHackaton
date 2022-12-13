@@ -13,7 +13,8 @@
         <activity
             android:name=".ui.mgmt.SettingsActivity"
             android:exported="false"
-            android:label="À propos">
+            android:label="À propos"
+            android:theme="@style/Theme.Exams.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
