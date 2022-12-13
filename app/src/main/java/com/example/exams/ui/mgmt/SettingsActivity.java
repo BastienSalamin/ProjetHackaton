@@ -20,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -31,14 +32,17 @@ public class SettingsActivity extends AppCompatActivity {
 
         btnToggleDark = findViewById(R.id.switchDark);
 
+
         SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
 
         if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             btnToggleDark.setChecked(true);
         }
         else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             btnToggleDark.setChecked(false);
         }
 
