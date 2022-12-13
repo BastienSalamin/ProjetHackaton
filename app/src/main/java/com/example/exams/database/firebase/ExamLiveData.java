@@ -36,7 +36,9 @@ public class ExamLiveData extends LiveData<ExamEntity> {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             ExamEntity entity = dataSnapshot.getValue(ExamEntity.class);
-            entity.setIdExam(dataSnapshot.getKey());
+            if(entity != null) {
+                entity.setIdExam(dataSnapshot.getKey());
+            }
             setValue(entity);
         }
 
