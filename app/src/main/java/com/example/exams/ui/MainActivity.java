@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.exams.R;
 import com.example.exams.database.entity.ExamEntity;
@@ -23,6 +24,7 @@ import com.example.exams.ui.student.StudentsActivity;
 import com.example.exams.viewmodel.exam.ExamsListViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TextView textView = findViewById(R.id.yourExamsText);
+        String salut = textView.getText().toString();
+
+        Calendar calendar = Calendar.getInstance();
+        salut += (calendar.get(Calendar.WEEK_OF_YEAR) - 1);
+
+        textView.setText(salut);
+
 
         viewModel = ViewModelProviders.of(this).get(ExamsListViewModel.class);
 
