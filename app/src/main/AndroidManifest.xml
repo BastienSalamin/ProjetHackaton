@@ -22,7 +22,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:label="Exams App"
+            android:label="Mood Hub"
             android:theme="@style/Theme.Exams.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
