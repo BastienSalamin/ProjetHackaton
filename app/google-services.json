@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "162686367507",
-    "firebase_url": "https://exams-cloud-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "exams-cloud",
-    "storage_bucket": "exams-cloud.appspot.com"
+    "project_number": "593435744668",
+    "firebase_url": "https://moodhub-5d320-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "moodhub-5d320",
+    "storage_bucket": "moodhub-5d320.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:162686367507:android:f5aeb65751026d9572cce6",
+        "mobilesdk_app_id": "1:593435744668:android:5194b507bb0b1fb5611059",
         "android_client_info": {
           "package_name": "com.example.exams"
         }
       },
       "oauth_client": [
         {
-          "client_id": "162686367507-uomcj5cgtdddkd53h4hep87935ec86pq.apps.googleusercontent.com",
+          "client_id": "593435744668-ic1l88gj9iep6gt2nh1j6al5e9uonggu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDHDBCgl9bEl76dI6Y6JtFTyZpJPQi3J0U"
+          "current_key": "AIzaSyDO3qNtVlzq9OACEP4hcls04NINcUcoUQ8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "162686367507-uomcj5cgtdddkd53h4hep87935ec86pq.apps.googleusercontent.com",
+              "client_id": "593435744668-ic1l88gj9iep6gt2nh1j6al5e9uonggu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
