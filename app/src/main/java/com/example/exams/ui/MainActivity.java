@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(login.contains("prof")) {
             Intent intent = new Intent(this, ExamCreationActivity.class);
+            intent.putExtra("ProfName", login);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, StudentsActivity.class);
