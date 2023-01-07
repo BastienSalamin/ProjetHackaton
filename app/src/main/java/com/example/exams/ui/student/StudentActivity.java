@@ -76,7 +76,6 @@ public class StudentActivity extends AppCompatActivity {
             editText3.setText(studentData[2]);
 
             createButtonModify();
-            createButtonDelete();
         }
         else {
             StudentViewModel.Factory factory = new StudentViewModel.Factory(getApplication(), "0L");
@@ -136,8 +135,8 @@ public class StudentActivity extends AppCompatActivity {
      */
     public void createButtonModify() {
         Button button = new Button(this);
-        button.setY(750f);
-        button.setX(25f);
+        button.setY(1800f);
+        button.setX(275f);
         button.setLayoutParams(new LinearLayout.LayoutParams(500, 150));
         button.setText(R.string.button_student_save_changes);
         button.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +183,7 @@ public class StudentActivity extends AppCompatActivity {
      */
     public void createButtonDelete() {
         Button button = new Button(this);
-        button.setY(750f);
+        button.setY(800f);
         button.setX(550f);
         button.setLayoutParams(new LinearLayout.LayoutParams(500, 150));
         button.setText(R.string.button_student_delete);

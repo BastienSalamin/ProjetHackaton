@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name=".ui.exam.ExamCreationActivity"
-            android:label="Création d&apos;un examen"
+            android:label="Liste des cours"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/Theme.Exams.NoActionBar">
             <meta-data
@@ -63,7 +63,7 @@
         </activity>
         <activity
             android:name=".ui.student.StudentsActivity"
-            android:label="Liste des étudiants"
+            android:label="Liste des cours"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/Theme.Exams.NoActionBar">
             <meta-data
@@ -72,7 +72,7 @@
         </activity>
         <activity
             android:name=".ui.student.StudentActivity"
-            android:label="Étudiant"
+            android:label="Sélection de l'état"
             android:parentActivityName=".ui.student.StudentsActivity"
             android:theme="@style/Theme.Exams.NoActionBar">
             <meta-data

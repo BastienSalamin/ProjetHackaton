@@ -11,7 +11,7 @@
     <string name="exam_label_duration">Durée :</string>
     <string name="exam_hint_duration">60\'</string>
     <string name="exam_label_room">Salle :</string>
-    <string name="button_list_students">Liste des étudiants</string>
+    <string name="button_login">Se connecter</string>
     <string name="add_student">Ajouter un étudiant</string>
     <string name="student_label_class">Classe :</string>
     <string name="student_hint_class">N° de la classe</string>
@@ -22,4 +22,10 @@
     <string name="button_student_save_changes">Enregistrer</string>
     <string name="button_student_delete">Supprimer</string>
     <string name="switch_dark_mode">Dark Mode</string>
+    <string name="login_name_text">Nom d\'utilisateur</string>
+    <string name="login_hint">bonjour.bonsoir@hes-so.ch</string>
+    <string name="password_text">Mot de passe</string>
+    <string name="password_hint">123456</string>
+    <string name="connecting">Connexion</string>
+    <string name="course_name">Nom du cours</string>
 </resources>

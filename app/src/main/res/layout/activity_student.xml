@@ -11,6 +11,20 @@
         android:id="@+id/toolbar"/>
 
     <TextView
+        android:id="@+id/courseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/course_name"
+        android:textColor="?attr/colorOnTertiary"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/studentClass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
         android:id="@+id/labelClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,16 +34,18 @@
         android:textColor="?attr/colorOnTertiary"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/courseName" />
 
     <EditText
         android:id="@+id/studentClass"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/student_hint_class"
         android:inputType="textNoSuggestions"
         android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/courseName"
         app:layout_constraintBaseline_toBaselineOf="@+id/labelClass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.851"

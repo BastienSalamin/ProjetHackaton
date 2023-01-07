@@ -21,6 +21,7 @@ import com.example.exams.ui.MainActivity;
 import com.example.exams.viewmodel.student.StudentsListViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -47,6 +48,14 @@ public class StudentsActivity extends MainActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        TextView textView = findViewById(R.id.weekNumber);
+        String salut = textView.getText().toString();
+
+        Calendar calendar = Calendar.getInstance();
+        salut += (calendar.get(Calendar.WEEK_OF_YEAR));
+
+        textView.setText(salut);
+
         viewModel = ViewModelProviders.of(this).get(StudentsListViewModel.class);
 
         viewModel.getAllStudents().observe(this, studentsToList -> {
@@ -71,7 +80,7 @@ public class StudentsActivity extends MainActivity {
 
                 int size = students.size();
 
-                createTitle(table);
+                // createTitle(table);
 
                 for (int i = 0; i < size; i++) {
                     createTable(table, i);
@@ -137,12 +146,12 @@ public class StudentsActivity extends MainActivity {
         row.setClickable(true);
         row.setFocusable(true);
         row.setBackgroundResource(android.R.drawable.menuitem_background);
-        for (int i = 0 ; i < 3 ; i++) {
+        for (int i = 1 ; i < 3 ; i++) {
             LinearLayout.LayoutParams textParams;
-            textParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 33);
+            textParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, (float) 50);
             TextView col1 = new TextView(this);
             col1.setText(studentData[i]);
-            col1.setTextSize(15);
+            col1.setTextSize(20);
             if(isDarkModeOn){
                 col1.setTextColor(LTGRAY);
             } else {
@@ -165,14 +174,5 @@ public class StudentsActivity extends MainActivity {
             }
         });
         layout.addView(row);
-    }
-
-    /**
-     * Method to move in the StudentActivity window, which display the information of the selected student
-     * @param view
-     */
-    public void browseStudent(View view) {
-        Intent intent = new Intent(this, StudentActivity.class);
-        startActivity(intent);
     }
 }

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,44 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
     private List<String> examData = new ArrayList<>();
 
-    /**
-     * Display the exams retrieved from the database
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        TextView textView = findViewById(R.id.yourExamsText);
-        String salut = textView.getText().toString();
-
-        Calendar calendar = Calendar.getInstance();
-        salut += (calendar.get(Calendar.WEEK_OF_YEAR) - 1);
-
-        textView.setText(salut);
-
-
-        viewModel = ViewModelProviders.of(this).get(ExamsListViewModel.class);
-
-        viewModel.getAllExams().observe(this, examsToList -> {
-            if(examsToList != null) {
-                exams = new ArrayList<>();
-                for(ExamEntity exam : examsToList) {
-                    exams.add(exam);
-                }
-
-                ListView list = findViewById(R.id.examList);
-
-                if(list != null){
-                    for (int i = 0; i < exams.size() ; i++) {
-                        createExamsList(list, i);
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -97,44 +66,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Display an exam retrieved from the database, depending on his position. It can be selected
-     * @param listView
-     * @param pos
-     */
-    private void createExamsList(ListView listView, int pos) {
-        ExamEntity exam = exams.get(pos);
-
-        String examString = "Examen " + (pos+1) + " :\nDate : " + exam.getDate() + "   Durée : " + exam.getDuration() + "     Étudiants : " + exam.getNumberStudents();
-
-        examData.add(examString);
-
-        ArrayList<String> examsList = new ArrayList<String>();
-        examsList.addAll(examData);
-
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, examsList);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i >= 0 && i < exams.size()) {
-                    ExamEntity examSelected = exams.get(i);
-                    String[] examInfos = {examSelected.getIdExam(), examSelected.getDate(), Integer.toString(examSelected.getDuration()), Integer.toString(examSelected.getNumberStudents()), examSelected.getRoomName(), examSelected.getSubjectName()};
-                    Intent intent = new Intent(MainActivity.this, ExamCreationActivity.class);
-                    intent.putExtra("ExamInfo", examInfos);
-                    startActivity(intent);
-                }
-
-            }
-        });
-        listView.setAdapter(listAdapter);
-    }
-
-    /**
      * Method to move in the StudentsActivity window, which display the list of all the students inside the database
      * @param view
      */
     public void browseStudents(View view) {
-        Intent intent = new Intent(this, StudentsActivity.class);
-        startActivity(intent);
+        EditText editText = findViewById(R.id.login);
+        String login = editText.getText().toString();
+
+        if(login.contains("prof")) {
+            Intent intent = new Intent(this, ExamCreationActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, StudentsActivity.class);
+            startActivity(intent);
+        }
     }
 
     /**
