@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.exams.R;
-import com.example.exams.database.entity.ExamEntity;
 import com.example.exams.ui.exam.ExamCreationActivity;
 import com.example.exams.ui.mgmt.SettingsActivity;
 import com.example.exams.ui.student.StudentsActivity;

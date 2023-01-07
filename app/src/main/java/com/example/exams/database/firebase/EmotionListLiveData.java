@@ -5,19 +5,23 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.example.exams.database.entity.EmotionEntity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-public class ExamLiveData extends LiveData<ExamEntity> {
-    private static final String TAG = "ExamLiveData";
+import java.util.ArrayList;
+import java.util.List;
+
+public class EmotionListLiveData extends LiveData<List<EmotionEntity>> {
+    private static final String TAG = "EmotionListLiveData";
 
     private final DatabaseReference reference;
-    private final ExamLiveData.MyValueEventListener listener = new ExamLiveData.MyValueEventListener();
+    private final EmotionListLiveData.MyValueEventListener listener = new EmotionListLiveData.MyValueEventListener();
 
-    public ExamLiveData(DatabaseReference ref) {
-        this.reference = ref;
+    public EmotionListLiveData(DatabaseReference ref) {
+        reference = ref;
     }
 
     @Override
@@ -34,16 +38,22 @@ public class ExamLiveData extends LiveData<ExamEntity> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            ExamEntity entity = dataSnapshot.getValue(ExamEntity.class);
-            if(entity != null) {
-                entity.setIdExam(dataSnapshot.getKey());
-            }
-            setValue(entity);
+            setValue(toEmotionList(dataSnapshot));
         }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
             Log.e(TAG, "Can't listen to query " + reference, databaseError.toException());
         }
+    }
+
+    private List<EmotionEntity> toEmotionList(DataSnapshot snapshot) {
+        List<EmotionEntity> emotionEntityList = new ArrayList<>();
+        for(DataSnapshot childSnapshot : snapshot.getChildren()) {
+            EmotionEntity emotion = childSnapshot.getValue(EmotionEntity.class);
+            emotion.setIdEmotion(childSnapshot.getKey());
+            emotionEntityList.add(emotion);
+        }
+        return emotionEntityList;
     }
 }

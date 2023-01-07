@@ -7,9 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
-import com.example.exams.database.entity.ExamEntity;
-import com.example.exams.database.repository.ExamRepository;
-
 import java.util.List;
 
 public class ExamsListViewModel extends AndroidViewModel {

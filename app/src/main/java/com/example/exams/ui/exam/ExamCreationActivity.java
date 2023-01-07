@@ -21,10 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.exams.R;
-import com.example.exams.database.entity.ExamEntity;
-import com.example.exams.database.entity.RoomEntity;
 import com.example.exams.database.entity.SubjectEntity;
-import com.example.exams.database.pojo.ExamWithStudents;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.exam.ExamViewModel;
 import com.example.exams.viewmodel.exam.ExamsListViewModel;

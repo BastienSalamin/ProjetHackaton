@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.exams.R;
-import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.util.OnAsyncEventListener;
 import com.example.exams.viewmodel.student.StudentViewModel;
 

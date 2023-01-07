@@ -5,31 +5,34 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentEntity {
-    private String idStudent;
+public class PersonEntity {
 
-    private String className;
+    public PersonEntity(){
 
-    private String surname;
-
-    private String name;
-
-    public StudentEntity() {
     }
 
-    public StudentEntity(String className, String surname, String name){
+    public PersonEntity(String className, String surname, String name, String status){
+
         this.className = className;
         this.surname = surname;
         this.name = name;
+        this.status = status;
     }
+
+    private String idPerson;
+    private String className;
+    private String surname;
+    private String name;
+    private String status;
 
     @Exclude
-    public String getIdStudent() {
-        return idStudent;
+
+    public String getIdPerson() {
+        return idPerson;
     }
 
-    public void setIdStudent(String idStudent) {
-        this.idStudent = idStudent;
+    public void setIdPerson(String idPerson) {
+        this.idPerson = idPerson;
     }
 
     public String getClassName() {
@@ -56,12 +59,21 @@ public class StudentEntity {
         this.name = name;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Exclude
-    public Map<String, Object> toMap() {
+    public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("className", className);
         result.put("surname", surname);
         result.put("name", name);
+        result.put("status", status);
         return result;
     }
 }

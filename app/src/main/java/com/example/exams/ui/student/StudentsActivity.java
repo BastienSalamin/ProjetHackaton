@@ -16,7 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.exams.R;
-import com.example.exams.database.entity.StudentEntity;
 import com.example.exams.ui.MainActivity;
 import com.example.exams.viewmodel.student.StudentsListViewModel;
 

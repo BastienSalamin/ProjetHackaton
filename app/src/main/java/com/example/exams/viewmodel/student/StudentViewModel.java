@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.exams.BaseApp;
-import com.example.exams.database.entity.StudentEntity;
-import com.example.exams.database.repository.StudentRepository;
 import com.example.exams.util.OnAsyncEventListener;
 
 public class StudentViewModel extends AndroidViewModel {
