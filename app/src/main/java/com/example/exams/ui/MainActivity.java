@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.exams.R;
 import com.example.exams.database.entity.ExamEntity;
@@ -39,10 +40,40 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.techers_view);
 
+        List<TextView> tvList = new ArrayList<>();
+
+        TextView tvITS = findViewById(R.id.ITS);
+        tvList.add(tvITS);
+
+        TextView tvMaths = findViewById(R.id.Maths);
+        tvList.add(tvMaths);
+
+        TextView tvBPM = findViewById(R.id.BPM);
+        tvList.add(tvBPM);
+
+        TextView tvPOO = findViewById(R.id.POO);
+        tvList.add(tvPOO);
+
+
+        for(TextView tv : tvList){
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i  = new Intent(MainActivity.this, SchoolClassView.class);
+                    i.putExtra("class", tv.getText());
+
+                    startActivity(i);
+                }
+            });
+        }
+
+    }
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        /*
         viewModel = ViewModelProviders.of(this).get(ExamsListViewModel.class);
 
         viewModel.getAllExams().observe(this, examsToList -> {
@@ -85,11 +116,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Display an exam retrieved from the database, depending on his position. It can be selected
-     * @param listView
-     * @param pos
-     */
+
     private void createExamsList(ListView listView, int pos) {
         ExamEntity exam = exams.get(pos);
 
@@ -117,21 +144,16 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
     }
 
-    /**
-     * Method to move in the StudentsActivity window, which display the list of all the students inside the database
-     * @param view
-     */
+
     public void browseStudents(View view) {
         Intent intent = new Intent(this, StudentsActivity.class);
         startActivity(intent);
     }
 
-    /**
-     * Method to move in the ExamCreationActivity window, which allow the user to create a new exam
-     * @param view
-     */
+
     public void createExam(View view) {
         Intent intent = new Intent(this, ExamCreationActivity.class);
         startActivity(intent);
     }
+    */
 }
